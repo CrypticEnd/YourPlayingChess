@@ -4,4 +4,4 @@ WORKDIR /app
 
 COPY target/ypc.jar ypc.jar
 
-ENTRYPOINT [ "java", "-jar", "/ypc.jar" ]
+ENTRYPOINT [ "java", "-jar", "ypc.jar" ]
