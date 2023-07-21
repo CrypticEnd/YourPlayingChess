@@ -46,4 +46,31 @@ public class UserService {
 		}
 	}
 
+	private void checkUserPassword(String password) {
+		int passwordLen = password.length();
+
+		if (passwordLen < 4 || passwordLen >= 15) {
+			logger.debug(String.format("Password failed to be correct length"));
+			throw new BadRequestException("Password must be between 4 and 15 characters");
+		}
+
+		// Checks if password has any at lest one lower case letter
+		if (!password.matches(".*[a-z]+.*")) {
+			logger.debug(String.format("Password failed to contain a lower case letter"));
+			throw new BadRequestException("Passwords must contain atlest one lower case letter");
+		}
+		
+		// Checks if password has any at lest one capital letter
+		if (!password.matches(".*[A-Z]+.*")) {
+			logger.debug(String.format("Password failed to contain a capital letter"));
+			throw new BadRequestException("Passwords must contain atlest one capital letter");
+		}
+		
+		// Checks if password has any numbers
+		if (!password.matches(".*\\d+.*")) {
+			logger.debug(String.format("Password failed to contain a digit"));
+			throw new BadRequestException("Passwords must contain atlest one digit");
+		}
+	}
+	
 }
