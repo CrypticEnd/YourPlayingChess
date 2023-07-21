@@ -45,7 +45,7 @@ public class UserService {
 	 * @param user User to save
 	 * @return The ID of the user
 	 */
-	public long save(User user) {
+	public int save(User user) {
 		this.checkUserName(user.getUsername());
 
 		User userFromDb = this.userRepository.findById(user.getId()).orElse(null);
@@ -75,6 +75,22 @@ public class UserService {
 		this.userRepository.save(user);
 		return user.getId();
 
+	}
+	
+	/**
+	 * Checks user password, encodes the password and saves the user
+	 * 
+	 * @param user User to save
+	 * @return User ID
+	 */
+	private int save(RegisteredUser user) {
+		this.checkUserPassword(user.getPassword());
+
+		user.setPassword(encoder.encode(user.getPassword()));
+
+		logger.debug("Trying to save new registered user: " + user);
+		this.registeredUserRepository.save(user);
+		return user.getId();
 	}
 
 	/**
@@ -124,22 +140,6 @@ public class UserService {
 
 		logger.debug(String.format("Updating user [%s] -> [%s]", userFromDb, user));
 		this.registeredUserRepository.save(RUser);
-	}
-
-	/**
-	 * Checks user password, encodes the password and saves the user
-	 * 
-	 * @param user User to save
-	 * @return User ID
-	 */
-	private long save(RegisteredUser user) {
-		this.checkUserPassword(user.getPassword());
-
-		user.setPassword(encoder.encode(user.getPassword()));
-
-		logger.debug("Trying to save new registered user: " + user);
-		this.registeredUserRepository.save(user);
-		return user.getId();
 	}
 
 	/**
