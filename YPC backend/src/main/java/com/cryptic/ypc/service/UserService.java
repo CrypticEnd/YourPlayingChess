@@ -46,6 +46,11 @@ public class UserService {
 		}
 	}
 
+	/**
+	 * Checks user password for correct format. Throws bad request with why it failed
+	 * 
+	 * @param password User password
+	 */
 	private void checkUserPassword(String password) {
 		int passwordLen = password.length();
 
@@ -59,18 +64,24 @@ public class UserService {
 			logger.debug(String.format("Password failed to contain a lower case letter"));
 			throw new BadRequestException("Passwords must contain atlest one lower case letter");
 		}
-		
+
 		// Checks if password has any at lest one capital letter
 		if (!password.matches(".*[A-Z]+.*")) {
 			logger.debug(String.format("Password failed to contain a capital letter"));
 			throw new BadRequestException("Passwords must contain atlest one capital letter");
 		}
-		
+
 		// Checks if password has any numbers
 		if (!password.matches(".*\\d+.*")) {
 			logger.debug(String.format("Password failed to contain a digit"));
 			throw new BadRequestException("Passwords must contain atlest one digit");
 		}
+		
+		// If password has trailing spaces
+		if(password.length() != password.trim().length()) {
+			logger.debug(String.format("Password failed has trailing spaces"));
+			throw new BadRequestException("Passwords cannot start or end with a space");
+		}
 	}
-	
+
 }
