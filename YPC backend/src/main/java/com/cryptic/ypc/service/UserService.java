@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.cryptic.ypc.dal.RegisteredUserRepository;
 import com.cryptic.ypc.dal.UserRepository;
 import com.cryptic.ypc.exceptions.BadRequestException;
+import com.cryptic.ypc.model.user.GuestUser;
+import com.cryptic.ypc.model.user.RegisteredUser;
 import com.cryptic.ypc.model.user.User;
 
 @Service
@@ -19,14 +21,72 @@ public class UserService {
 	private RegisteredUserRepository registeredUserRepository;
 	@Autowired
 	private PasswordEncoder encoder;
-	
+
 	private static Logger logger = LoggerFactory.getLogger(UserService.class);
-	
-	
 
 	/**
-	 * Checks user name for correct format. Auto Trims username as trailing blank
-	 * spaces are not allowed Throws bad request with why it failed
+	 * Saves a single user of any type If a userID is defined in user. Checks user
+	 * data for correct format. If the user ID is taken by a registered user If
+	 * taken by a guest user, and User to save is a registered user. Will Transform
+	 * guest user into registered user
+	 * 
+	 * @param user User to save
+	 * @return The ID of the user
+	 */
+	public long save(User user) {
+		this.checkUserName(user.getUsername());
+
+		User userFromDb = this.userRepository.findById(user.getId()).orElse(null);
+
+		// Checks user from DB
+		// If user from DB is a guess, they can become a registered user
+		// Otherwise throw error
+		if (userFromDb != null) {
+			if (userFromDb.getClass() != GuestUser.class) {
+				throw new BadRequestException("Cannot save a user with ID that already exsits");
+			}
+
+			if (user.getClass() != RegisteredUser.class) {
+				throw new BadRequestException("Cannot save a user with ID that already exsits");
+			}
+
+			this.UpdateUserFromGuest((RegisteredUser) user);
+			return user.getId();
+		}
+
+		// Save registered user
+		if (user.getClass() == RegisteredUser.class) {
+			return this.save((RegisteredUser) user);
+		}
+
+		logger.debug("Trying to save new guest user: " + user);
+		this.userRepository.save(user);
+		return user.getId();
+
+	}
+
+	/**
+	 * Checks user password, encodes the password and saves the user
+	 * 
+	 * @param user User to save
+	 * @return User ID
+	 */
+	private long save(RegisteredUser user) {
+		this.checkUserPassword(user.getPassword());
+
+		user.setPassword(encoder.encode(user.getPassword()));
+
+		logger.debug("Trying to save new registered user: " + user);
+		this.registeredUserRepository.save(user);
+		return user.getId();
+	}
+
+	private void UpdateUserFromGuest(RegisteredUser user) {
+
+	}
+
+	/**
+	 * Checks user name for correct format. Throws bad request with why it failed
 	 * 
 	 * @param username user name to check
 	 */
@@ -47,7 +107,8 @@ public class UserService {
 	}
 
 	/**
-	 * Checks user password for correct format. Throws bad request with why it failed
+	 * Checks user password for correct format. Throws bad request with why it
+	 * failed
 	 * 
 	 * @param password User password
 	 */
@@ -76,9 +137,9 @@ public class UserService {
 			logger.debug(String.format("Password failed to contain a digit"));
 			throw new BadRequestException("Passwords must contain atlest one digit");
 		}
-		
+
 		// If password has trailing spaces
-		if(password.length() != password.trim().length()) {
+		if (password.length() != password.trim().length()) {
 			logger.debug(String.format("Password failed has trailing spaces"));
 			throw new BadRequestException("Passwords cannot start or end with a space");
 		}
