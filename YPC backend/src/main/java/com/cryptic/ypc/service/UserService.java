@@ -5,12 +5,15 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException.Forbidden;
 
 import com.cryptic.ypc.dal.RegisteredUserRepository;
 import com.cryptic.ypc.dal.UserRepository;
 import com.cryptic.ypc.exceptions.BadRequestException;
+import com.cryptic.ypc.exceptions.ForbiddenException;
 import com.cryptic.ypc.exceptions.NotFoundException;
 import com.cryptic.ypc.model.user.GuestUser;
 import com.cryptic.ypc.model.user.RegisteredUser;
@@ -96,13 +99,42 @@ public class UserService {
 	/**
 	 * Updates an existing user
 	 * 
-	 * @param user
+	 * @param user user to update
 	 */
 	public void updateUser(User user) {
-		Object userClass = user.getClass();
-
 		User userFromDb = this.userRepository.findById(user.getId()).orElseThrow(() -> new NotFoundException(
 				String.format("User not found with id: %d. Cannot udate user", user.getId())));
+
+		this.updateUser(user, userFromDb);
+	}
+	
+	/** Updates a user if requester has proper permissions to update said user.
+	 * (owns the user account)
+	 * @param user Updated user
+	 * @param auth User authentication
+	 */
+	public void updateUser(User user, Authentication auth) {
+		if(auth == null) {
+			throw new ForbiddenException("Do not have permission to update this user");
+		}
+		
+		User userFromDb = this.userRepository.findById(user.getId()).orElseThrow(() -> new NotFoundException(
+				String.format("User not found with id: %d. Cannot udate user", user.getId())));
+		
+		if(!auth.getName().equals(userFromDb.getUsername())) {
+			throw new ForbiddenException("Do not have permission to update this user");
+		}
+		
+		this.updateUser(user, userFromDb);
+	}
+	
+	/**
+	 * Updates user given the update user and the currently saved user
+	 * @param user Updated user
+	 * @param userFromDb User currently saved
+	 */
+	private void updateUser(User user, User userFromDb) {
+		Object userClass = user.getClass();
 
 		// Can update to different user class
 		if (userClass == RegisteredUser.class && userFromDb.getClass() == GuestUser.class) {
