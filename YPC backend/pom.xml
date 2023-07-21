@@ -11,7 +11,7 @@
 	<groupId>com.cryptic</groupId>
 	<artifactId>YPC.backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>YPC.backend</name>
+	<name>Your playing Ches-backend</name>
 	<description>Backend for Your playing Chess</description>
 	<properties>
 		<java.version>17</java.version>
