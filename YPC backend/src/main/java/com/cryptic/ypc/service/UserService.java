@@ -1,5 +1,7 @@
 package com.cryptic.ypc.service;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,13 @@ public class UserService {
 	private PasswordEncoder encoder;
 
 	private static Logger logger = LoggerFactory.getLogger(UserService.class);
+
+	/** Saves a list of users
+	 * @param users
+	 */
+	public void saveAll(List<User> users) {
+		users.forEach(u -> this.save(u));
+	}
 
 	/**
 	 * Saves a single user of any type If a userID is defined in user. Checks user
@@ -81,8 +90,19 @@ public class UserService {
 		return user.getId();
 	}
 
+	/**
+	 * Updates a guest user to a registered user
+	 * 
+	 * @param user Registered user to overwrite a guest user
+	 */
 	private void UpdateUserFromGuest(RegisteredUser user) {
+		this.checkUserPassword(user.getPassword());
 
+		user.setPassword(encoder.encode(user.getPassword()));
+
+		logger.trace("Updating guest user to registered user");
+
+		this.userRepository.updateGuestUserToRegistered(user.getId(), user.getUsername(), user.getPassword());
 	}
 
 	/**
