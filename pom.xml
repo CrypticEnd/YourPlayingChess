@@ -12,7 +12,7 @@
 	<groupId>com.cryptic</groupId>
 	<artifactId>YPC.backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Your playing Ches-backend</name>
+	<name>Your playing Chess</name>
 	<description>Backend for Your playing Chess</description>
 	<properties>
 		<java.version>17</java.version>
@@ -91,6 +91,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>ypc</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
