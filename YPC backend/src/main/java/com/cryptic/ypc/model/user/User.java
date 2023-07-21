@@ -22,7 +22,7 @@ public abstract class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
-	private int id;
+	private Long id;
 
 	@Column(name = "user_name", nullable = false)
 	private String username;
