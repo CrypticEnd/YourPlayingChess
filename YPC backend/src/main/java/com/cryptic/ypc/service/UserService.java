@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.cryptic.ypc.dal.RegisteredUserRepository;
 import com.cryptic.ypc.dal.UserRepository;
 import com.cryptic.ypc.exceptions.BadRequestException;
+import com.cryptic.ypc.exceptions.NotFoundException;
 import com.cryptic.ypc.model.user.GuestUser;
 import com.cryptic.ypc.model.user.RegisteredUser;
 import com.cryptic.ypc.model.user.User;
@@ -26,7 +27,9 @@ public class UserService {
 
 	private static Logger logger = LoggerFactory.getLogger(UserService.class);
 
-	/** Saves a list of users
+	/**
+	 * Saves a list of users
+	 * 
 	 * @param users
 	 */
 	public void saveAll(List<User> users) {
@@ -72,6 +75,55 @@ public class UserService {
 		this.userRepository.save(user);
 		return user.getId();
 
+	}
+
+	/**
+	 * Updates an existing user
+	 * 
+	 * @param user
+	 */
+	public void updateUser(User user) {
+		Object userClass = user.getClass();
+
+		User userFromDb = this.userRepository.findById(user.getId()).orElseThrow(() -> new NotFoundException(
+				String.format("User not found with id: %d. Cannot udate user", user.getId())));
+
+		// Can update to different user class
+		if (userClass == RegisteredUser.class && userFromDb.getClass() == GuestUser.class) {
+			this.UpdateUserFromGuest((RegisteredUser) user);
+			return;
+		}
+
+		if (userClass != userFromDb.getClass()) {
+			throw new BadRequestException("Cannot update users with miss-matched classes");
+		}
+
+		this.checkUserName(user.getUsername());
+
+		// If guest user save
+		if (userClass == GuestUser.class) {
+			logger.debug(String.format("Updating user [%s] -> [%s]", userFromDb, user));
+			this.userRepository.save(user);
+			return;
+		}
+
+		RegisteredUser RUser = (RegisteredUser) user;
+
+		// check if password has changed
+		// If no password is set for user to update and if password has changed
+		if (!(RUser.getPassword().trim().equals(""))
+				&& ((RegisteredUser) userFromDb).getPassword() != RUser.getPassword()) {
+
+			this.checkUserPassword(RUser.getPassword());
+			RUser.setPassword(encoder.encode(RUser.getPassword()));
+		}
+		// Else set password to be old password
+		else {
+			RUser.setPassword(((RegisteredUser) userFromDb).getPassword());
+		}
+
+		logger.debug(String.format("Updating user [%s] -> [%s]", userFromDb, user));
+		this.registeredUserRepository.save(RUser);
 	}
 
 	/**
