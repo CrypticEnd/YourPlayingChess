@@ -28,10 +28,15 @@ public class Move {
 	 * Like move each char in this string is a move on the board
 	 * Each move saved as two bytes.
 	 * 
+	 * Max length 20: 
+	 * 		Think this is on the high end 
+	 * 		but might be too low in some edge cases 
+	 * 
 	 * Why have move and board changes:
 	 * 		Move is for the user inputed move
 	 * 		board changes is for everything that changed on the board 
 	 * 		(such as falling pieces) 
 	 */
+	@Column(length = 20)
 	private String boardChanges;
 }
