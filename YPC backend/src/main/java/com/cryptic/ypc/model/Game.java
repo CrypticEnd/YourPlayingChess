@@ -29,6 +29,8 @@ public class Game {
 	private User playerOther;
 
 	private GameType type;
+	
+	private Boolean ChessPlayerWhite;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "game_id")
