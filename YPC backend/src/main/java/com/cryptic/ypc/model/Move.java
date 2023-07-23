@@ -1,5 +1,11 @@
 package com.cryptic.ypc.model;
 
+import java.util.List;
+
+import com.cryptic.ypc.game.BoardChange;
+import com.cryptic.ypc.model.attributeConverter.BoardChangeConverter;
+import com.cryptic.ypc.model.attributeConverter.ListBoardChangeConverter;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,36 +22,17 @@ public class Move {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "move_id")
 	private long id;
-	
+
+	@Convert(converter = BoardChangeConverter.class)
+	private BoardChange move;
+
 	/**
-	 * A Single move is stored as two bytes
-	 * Chars in java are two bytes (same as a short)
-	 * Using char because board Changes is saved as a string.
+	 * Like move each char in this string is a move on the board Each move saved as
+	 * two bytes.
 	 * 
-	 * First byte
-	 * 		0-63 Represents Board position 
-	 * 		Out of range is create object of given ID 
-	 * 		Should relate to a board piece ID 
-	 * 
-	 * Second Byte
-	 * 		0-63 Represents Board position
-	 * 		Out of range is error
+	 * Why have move and board changes: Move is for the user inputed move board
+	 * changes is for everything that changed on the board (such as falling pieces)
 	 */
-	private char move;
-	
-	/**
-	 * Like move each char in this string is a move on the board
-	 * Each move saved as two bytes.
-	 * 
-	 * Max length 20: 
-	 * 		Think this is on the high end 
-	 * 		but might be too low in some edge cases 
-	 * 
-	 * Why have move and board changes:
-	 * 		Move is for the user inputed move
-	 * 		board changes is for everything that changed on the board 
-	 * 		(such as falling pieces) 
-	 */
-	@Column(length = 20)
-	private String boardChanges;
+	@Convert(converter = ListBoardChangeConverter.class)
+	private List<BoardChange> boardChanges;
 }
