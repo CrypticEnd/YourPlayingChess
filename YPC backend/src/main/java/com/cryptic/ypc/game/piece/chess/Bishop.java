@@ -2,7 +2,7 @@ package com.cryptic.ypc.game.piece.chess;
 
 import com.cryptic.ypc.game.BoardState;
 import com.cryptic.ypc.game.IBoardPiece;
-import com.cryptic.ypc.game.moveValidation.IMoveValidator;
+import com.cryptic.ypc.game.mover.IMover;
 
 public final class Bishop implements IBoardPiece {
 	private static Bishop INSTANCE;
@@ -26,7 +26,7 @@ public final class Bishop implements IBoardPiece {
 	}
 
 	@Override
-	public boolean canMakeMove(IMoveValidator validator, BoardState boardState, char move) {
+	public boolean canMakeMove(IMover validator, BoardState boardState, char move) {
 		// TODO Auto-generated method stub
 		return false;
 	}

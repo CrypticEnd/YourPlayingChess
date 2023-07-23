@@ -2,7 +2,7 @@ package com.cryptic.ypc.game.piece;
 
 import com.cryptic.ypc.game.BoardState;
 import com.cryptic.ypc.game.IBoardPiece;
-import com.cryptic.ypc.game.moveValidation.IMoveValidator;
+import com.cryptic.ypc.game.mover.IMover;
 
 import lombok.ToString;
 
@@ -29,7 +29,7 @@ public final class ConnectFourToken implements IBoardPiece {
 	}
 
 	@Override
-	public boolean canMakeMove(IMoveValidator validator, BoardState boardState, char move) {
+	public boolean canMakeMove(IMover validator, BoardState boardState, char move) {
 		// TODO Auto-generated method stub
 		return false;
 	}

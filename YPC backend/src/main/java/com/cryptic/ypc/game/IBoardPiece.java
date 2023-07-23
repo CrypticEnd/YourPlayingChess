@@ -1,6 +1,6 @@
 package com.cryptic.ypc.game;
 
-import com.cryptic.ypc.game.moveValidation.IMoveValidator;
+import com.cryptic.ypc.game.mover.IMover;
 
 /**
  * Board piece interface.
@@ -18,6 +18,6 @@ import com.cryptic.ypc.game.moveValidation.IMoveValidator;
 public interface IBoardPiece {
 
 	public Byte getId();
-	public boolean canMakeMove(IMoveValidator validator, BoardState boardState, char move);
+	public boolean canMakeMove(IMover validator, BoardState boardState, char move);
 	public String getName();
 }
