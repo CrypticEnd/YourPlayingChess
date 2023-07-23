@@ -22,6 +22,17 @@ public class BoardChange {
 	 * 0-63 Represents Board position Out of range is error
 	 */
 	private Byte moveFrom;
+	
+	public BoardChange(Byte moveTo, Byte moveFrom) {
+		super();
+		this.setMoveTo(moveTo);
+		this.setMoveFrom(moveFrom);
+	}
+	
+	public BoardChange(char c) {
+		super();
+		this.setMove(c);
+	}
 
 	public char getMove() {
 		return (char) (((moveTo & 0xFF) << 8) + (moveFrom & 0xFF));
@@ -32,7 +43,7 @@ public class BoardChange {
 
 		byte[] moveArr = new byte[] { (byte) (s >>> 8), (byte) s };
 
-		this.setMoveFrom(moveArr[0]);
+		this.setMoveTo(moveArr[0]);
 		this.setMoveFrom(moveArr[1]);
 	}
 
@@ -45,5 +56,4 @@ public class BoardChange {
 		// TODO validation
 		this.moveFrom = b;
 	}
-
 }
