@@ -1,8 +1,10 @@
 package com.cryptic.ypc.game.piece.chess;
 
+import java.util.List;
+
 import com.cryptic.ypc.game.BoardChange;
 import com.cryptic.ypc.game.BoardState;
-import com.cryptic.ypc.game.IBoardPiece;
+import com.cryptic.ypc.game.BoardPiece;
 import com.cryptic.ypc.game.mover.IMover;
 
 import lombok.Getter;
@@ -19,24 +21,23 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class King implements IBoardPiece {
-	private final byte id = 105;
-	private static final String name = "King";
+public class King extends BoardPiece {
+	private static final byte id = 105;
 	private Boolean beenChecked = false;
 
-	@Override
-	public Byte getId() {
-		return id;
+	public King() {
+		this.name = "King";
 	}
 
 	@Override
-	public boolean move(IMover mover, BoardState boardState, BoardChange move) {
+	public byte getId() {
+		return King.id;
+	}
+
+	@Override
+	public List<BoardChange> move(IMover mover, BoardState boardState, BoardChange move) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
-	@Override
-	public String getName() {
-		return name;
-	}
 }
