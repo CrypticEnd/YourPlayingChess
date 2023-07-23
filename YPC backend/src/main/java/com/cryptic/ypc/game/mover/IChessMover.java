@@ -21,15 +21,15 @@ import com.cryptic.ypc.game.piece.chess.Rook;
  *
  */
 public interface IChessMover extends IMover {
-	public List<BoardChange> moveBishop(BoardState boardState, Bishop bishop);
+	public List<BoardChange> moveBishop(BoardState boardState, Bishop bishop, BoardChange move);
 
-	public List<BoardChange> moveKing(BoardState boardState, King king);
+	public List<BoardChange> moveKing(BoardState boardState, King king, BoardChange move);
 
-	public List<BoardChange> moveKnight(BoardState boardState, Knight knight);
+	public List<BoardChange> moveKnight(BoardState boardState, Knight knight, BoardChange move);
 
-	public List<BoardChange> movePawn(BoardState boardState, Pawn pawn);
+	public List<BoardChange> movePawn(BoardState boardState, Pawn pawn, BoardChange move);
 
-	public List<BoardChange> moveQueen(BoardState boardState, Queen queen);
+	public List<BoardChange> moveQueen(BoardState boardState, Queen queen, BoardChange move);
 
-	public List<BoardChange> moveRook(BoardState boardState, Rook rook);
+	public List<BoardChange> moveRook(BoardState boardState, Rook rook, BoardChange move);
 }

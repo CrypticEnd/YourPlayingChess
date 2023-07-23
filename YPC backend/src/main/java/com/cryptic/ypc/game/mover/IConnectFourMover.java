@@ -16,7 +16,7 @@ import com.cryptic.ypc.game.piece.ConnectFourToken;
  */
 public interface IConnectFourMover extends IMover {
 
-	public List<BoardChange> placeToken(BoardState boardState, ConnectFourToken token);
+	public List<BoardChange> placeToken(BoardState boardState, ConnectFourToken token, BoardChange move);
 
 	/**
 	 * For if the token can/cannot fall. Connect four tends to have tokens falling
@@ -26,6 +26,6 @@ public interface IConnectFourMover extends IMover {
 	 * @param token
 	 * @return
 	 */
-	public List<BoardChange> tokenFall(BoardState boardState, ConnectFourToken token);
+	public List<BoardChange> tokenFall(BoardState boardState, ConnectFourToken token, BoardChange move);
 
 }

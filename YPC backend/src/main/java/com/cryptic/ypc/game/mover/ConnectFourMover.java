@@ -9,13 +9,13 @@ import com.cryptic.ypc.game.piece.ConnectFourToken;
 public class ConnectFourMover implements IConnectFourMover{
 
 	@Override
-	public List<BoardChange> placeToken(BoardState boardState, ConnectFourToken token) {
+	public List<BoardChange> placeToken(BoardState boardState, ConnectFourToken token, BoardChange move) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<BoardChange> tokenFall(BoardState boardState, ConnectFourToken token) {
+	public List<BoardChange> tokenFall(BoardState boardState, ConnectFourToken token, BoardChange move) {
 		// TODO Auto-generated method stub
 		return null;
 	}
