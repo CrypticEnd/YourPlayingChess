@@ -6,7 +6,7 @@ import com.cryptic.ypc.game.BoardChange;
 import com.cryptic.ypc.game.BoardState;
 import com.cryptic.ypc.game.piece.ConnectFourToken;
 
-public class ConnectFourMover implements IConnectFourMover{
+public class ConnectFourMover extends ChessMover implements IConnectFourMover{
 
 	@Override
 	public List<BoardChange> placeToken(BoardState boardState, ConnectFourToken token, BoardChange move) {
