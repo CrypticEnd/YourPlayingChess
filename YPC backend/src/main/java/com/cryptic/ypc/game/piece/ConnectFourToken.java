@@ -1,5 +1,6 @@
 package com.cryptic.ypc.game.piece;
 
+import com.cryptic.ypc.game.BoardChange;
 import com.cryptic.ypc.game.BoardState;
 import com.cryptic.ypc.game.IBoardPiece;
 import com.cryptic.ypc.game.mover.IMover;
@@ -29,7 +30,7 @@ public final class ConnectFourToken implements IBoardPiece {
 	}
 
 	@Override
-	public boolean canMakeMove(IMover validator, BoardState boardState, char move) {
+	public boolean move(IMover mover, BoardState boardState, BoardChange move) {
 		// TODO Auto-generated method stub
 		return false;
 	}

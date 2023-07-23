@@ -18,6 +18,6 @@ import com.cryptic.ypc.game.mover.IMover;
 public interface IBoardPiece {
 
 	public Byte getId();
-	public boolean canMakeMove(IMover validator, BoardState boardState, char move);
 	public String getName();
+	boolean move(IMover mover, BoardState boardState, BoardChange move);
 }
