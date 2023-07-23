@@ -6,30 +6,20 @@ import com.cryptic.ypc.game.BoardChange;
 import com.cryptic.ypc.game.BoardState;
 import com.cryptic.ypc.game.BoardPiece;
 import com.cryptic.ypc.game.mover.IMover;
+import com.cryptic.ypc.model.enums.Player;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @ToString
+@Getter
+@NoArgsConstructor
 public final class Pawn extends BoardPiece {
-	private static Pawn INSTANCE;
-	private static final byte id = 100;
+	private static final String name = "Pawn";
 
-	private Pawn() {
-		this.name = "Pawn";
-	}
-
-	public static Pawn getPawn() {
-		if (INSTANCE == null) {
-			INSTANCE = new Pawn();
-		}
-
-		return INSTANCE;
-	}
-
-	@Override
-	public byte getId() {
-		// TODO Auto-generated method stub
-		return 0;
+	public Pawn(Player player) {
+		super(player);
 	}
 
 	@Override
@@ -37,6 +27,5 @@ public final class Pawn extends BoardPiece {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 }

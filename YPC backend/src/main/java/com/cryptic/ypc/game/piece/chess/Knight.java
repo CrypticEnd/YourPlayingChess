@@ -6,29 +6,20 @@ import com.cryptic.ypc.game.BoardChange;
 import com.cryptic.ypc.game.BoardState;
 import com.cryptic.ypc.game.BoardPiece;
 import com.cryptic.ypc.game.mover.IMover;
+import com.cryptic.ypc.model.enums.Player;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @ToString
+@Getter
+@NoArgsConstructor
 public final class Knight extends BoardPiece {
-	private static Knight INSTANCE;
-	private static final byte id = 102;
+	private static final String name = "Knight";
 
-	private Knight() {
-		this.name = "Knight";
-	}
-
-	public static Knight getKnight() {
-		if (INSTANCE == null) {
-			INSTANCE = new Knight();
-		}
-
-		return INSTANCE;
-	}
-
-	@Override
-	public byte getId() {
-		return Knight.id;
+	public Knight(Player player) {
+		super(player);
 	}
 
 	@Override
@@ -36,6 +27,5 @@ public final class Knight extends BoardPiece {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 }

@@ -6,29 +6,20 @@ import com.cryptic.ypc.game.BoardChange;
 import com.cryptic.ypc.game.BoardState;
 import com.cryptic.ypc.game.BoardPiece;
 import com.cryptic.ypc.game.mover.IMover;
+import com.cryptic.ypc.model.enums.Player;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @ToString
+@Getter
+@NoArgsConstructor
 public final class Rook extends BoardPiece {
-	private static Rook INSTANCE;
-	private static final byte id = 103;
+	private static final String name = "Rook";
 
-	private Rook() {
-		this.name = "Rook";
-	}
-
-	public static Rook getRook() {
-		if (INSTANCE == null) {
-			INSTANCE = new Rook();
-		}
-
-		return INSTANCE;
-	}
-
-	@Override
-	public byte getId() {
-		return Rook.id;
+	public Rook(Player player) {
+		super(player);
 	}
 
 	@Override
@@ -36,6 +27,5 @@ public final class Rook extends BoardPiece {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 }

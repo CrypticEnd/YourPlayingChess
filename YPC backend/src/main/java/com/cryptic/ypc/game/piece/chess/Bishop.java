@@ -6,26 +6,18 @@ import com.cryptic.ypc.game.BoardChange;
 import com.cryptic.ypc.game.BoardState;
 import com.cryptic.ypc.game.BoardPiece;
 import com.cryptic.ypc.game.mover.IMover;
+import com.cryptic.ypc.model.enums.Player;
 
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+@NoArgsConstructor
+@ToString
 public final class Bishop extends BoardPiece {
-	private static Bishop INSTANCE;
-	private static final byte id = 101;
+	private static final String name = "Bishop";
 
-	private Bishop() {
-		this.name = "Bishop";
-	}
-
-	public static Bishop getBishop() {
-		if (INSTANCE == null) {
-			INSTANCE = new Bishop();
-		}
-
-		return INSTANCE;
-	}
-
-	@Override
-	public byte getId() {
-		return Bishop.id;
+	public Bishop(Player player) {
+		super(player);
 	}
 
 	@Override

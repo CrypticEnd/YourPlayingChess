@@ -6,24 +6,20 @@ import com.cryptic.ypc.game.BoardChange;
 import com.cryptic.ypc.game.BoardState;
 import com.cryptic.ypc.game.BoardPiece;
 import com.cryptic.ypc.game.mover.IMover;
+import com.cryptic.ypc.model.enums.Player;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @ToString
+@NoArgsConstructor
+@Getter
 public final class ConnectFourToken extends BoardPiece {
-	private static ConnectFourToken INSTANCE;
-	private static final byte id = 106;
+	private static final String name = "Token";
 
-	private ConnectFourToken() {
-		this.name = "Token";
-	}
-
-	public static ConnectFourToken geToken() {
-		if (INSTANCE == null) {
-			INSTANCE = new ConnectFourToken();
-		}
-
-		return INSTANCE;
+	public ConnectFourToken(Player player) {
+		super(player);
 	}
 
 	@Override
@@ -32,8 +28,4 @@ public final class ConnectFourToken extends BoardPiece {
 		return null;
 	}
 
-	@Override
-	public byte getId() {
-		return ConnectFourToken.id;
-	}
 }

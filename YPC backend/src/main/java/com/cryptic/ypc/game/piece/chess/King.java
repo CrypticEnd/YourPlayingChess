@@ -6,8 +6,10 @@ import com.cryptic.ypc.game.BoardChange;
 import com.cryptic.ypc.game.BoardState;
 import com.cryptic.ypc.game.BoardPiece;
 import com.cryptic.ypc.game.mover.IMover;
+import com.cryptic.ypc.model.enums.Player;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -21,23 +23,20 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public class King extends BoardPiece {
-	private static final byte id = 105;
-	private Boolean beenChecked = false;
+	private static final String name = "King";
 
-	public King() {
-		this.name = "King";
+	public King(Player player) {
+		super(player);
 	}
-
-	@Override
-	public byte getId() {
-		return King.id;
-	}
-
+	
 	@Override
 	public List<BoardChange> move(IMover mover, BoardState boardState, BoardChange move) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 }

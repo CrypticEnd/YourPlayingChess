@@ -6,19 +6,13 @@ import com.cryptic.ypc.game.mover.IMover;
 import com.cryptic.ypc.model.enums.Player;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 /**
  * Board piece abstract class .
- * Expects all children to have an ID that in Unique across the game.
- * Each board piece is only needed once so should use singleton design 
- * 
- * 
- * Clained IDs
- * 		100-105 - 	Chess
- * 		106 	-	Connect Four
- * 
+ * Expects pieces to be owned by a player
  * 
  * @author reece
  *
@@ -26,11 +20,14 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public abstract class BoardPiece {
-	protected Player player;
-	protected String name;
-	
-	public abstract byte getId();
-	
+	protected Player player = Player.NONE;
+		
 	public abstract List<BoardChange> move(IMover mover, BoardState boardState, BoardChange move);
+
+	public BoardPiece(Player player) {
+		super();
+		this.player = player;
+	}
 }
