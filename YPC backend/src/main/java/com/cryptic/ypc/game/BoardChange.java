@@ -20,10 +20,6 @@ public class BoardChange {
 	private byte maxBoardRange = 63;
 
 	/**
-	 * A range of acceptable inputs for a board piece ID
-	 */
-	private List<Integer> boardPiecesIds;
-	/**
 	 * 0-maxBoardRange (63) Represents Board position
 	 * 
 	 * Out of range is create object of given ID Should relate to a board piece ID
@@ -39,26 +35,11 @@ public class BoardChange {
 	private static Logger logger = LoggerFactory.getLogger(BoardChange.class);
 
 	/**
-	 * @param moveTo      First move byte
-	 * @param moveFrom    Second move byte
-	 * @param boardPieces List of board Pieces that are available to create
-	 *                    (nullable)
-	 */
-	public BoardChange(byte moveFrom, byte moveTo, List<BoardPiece> boardPieces) {
-		super();
-
-		this.setBoardPiecesIds(boardPieces);
-
-		this.setMove(moveTo, moveFrom);
-	}
-
-	/**
 	 * @param moveTo   First move byte
 	 * @param moveFrom Second move byte
 	 */
 	public BoardChange(byte moveFrom, byte moveTo) {
 		super();
-		this.setBoardPiecesIds(null);
 		this.setMove(moveTo, moveFrom);
 	}
 
@@ -67,7 +48,6 @@ public class BoardChange {
 	 */
 	public BoardChange(char c) {
 		super();
-		this.setBoardPiecesIds(null);
 		this.setMove(c);
 	}
 
@@ -79,19 +59,6 @@ public class BoardChange {
 	public BoardChange(char c, List<BoardPiece> boardPieces) {
 		super();
 		this.setMove(c);
-	}
-
-	public List<Integer> getBoardPiecesIds() {
-		return boardPiecesIds;
-	}
-
-	public void setBoardPiecesIds(List<BoardPiece> boardPieces) {
-		if (boardPiecesIds == null) {
-			this.boardPiecesIds = new ArrayList<>();
-		} else {
-			this.boardPiecesIds = boardPieces.stream().mapToInt(b -> b.getId()).boxed().toList();
-			;
-		}
 	}
 
 	public byte getMoveTo() {
@@ -120,7 +87,7 @@ public class BoardChange {
 
 			logger.debug("First byte is to move from postion: " + moveFrom);
 
-		} else if (this.boardPiecesIds.contains((int) moveFrom)) {
+		} else if (BoardPieceIdMap.pieceIdExsists(moveTo)) {
 			this.moveFrom = moveFrom;
 
 			logger.debug("First byte is to create a game peice of ID: " + moveFrom);
