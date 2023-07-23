@@ -1,5 +1,9 @@
 package com.cryptic.ypc.game;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,10 +20,9 @@ public class BoardChange {
 	private byte maxBoardRange = 63;
 
 	/**
-	 * A range of acceptable inputs for a board piece ID Inclusive
+	 * A range of acceptable inputs for a board piece ID
 	 */
-	private byte gamePieceMinRange;
-	private byte gamePieceMaxRange;
+	private List<Integer> boardPiecesIds;
 	/**
 	 * 0-maxBoardRange (63) Represents Board position
 	 * 
@@ -36,39 +39,59 @@ public class BoardChange {
 	private static Logger logger = LoggerFactory.getLogger(BoardChange.class);
 
 	/**
-	 * @param moveTo         First move byte
-	 * @param moveFrom       Second move byte
-	 * @param gamePeiceRange A size two array containing the min game piece ID and
-	 *                       max game piece ID (Inclusive)
+	 * @param moveTo      First move byte
+	 * @param moveFrom    Second move byte
+	 * @param boardPieces List of board Pieces that are available to create
+	 *                    (nullable)
 	 */
-	public BoardChange(byte moveFrom, byte moveTo, byte[] gamePeiceRange) {
+	public BoardChange(byte moveFrom, byte moveTo, List<IBoardPiece> boardPieces) {
 		super();
 
-		if (gamePeiceRange.length != 2)
-			throw new BadRequestException("BoardChange id range not size 2");
+		this.setBoardPiecesIds(boardPieces);
 
-		this.gamePieceMinRange = gamePeiceRange[0];
-		this.gamePieceMaxRange = gamePeiceRange[1];
 		this.setMove(moveTo, moveFrom);
 	}
 
 	/**
-	 * @param moveTo            First move byte
-	 * @param moveFrom          Second move byte
-	 * @param gamePeiceMinRange Min range of piece ID (Inclusive)
-	 * @param gamePeiceMaxRange Max range of piece IDs (Inclusive)
+	 * @param moveTo   First move byte
+	 * @param moveFrom Second move byte
 	 */
-	public BoardChange(byte moveFrom, byte moveTo, byte gamePieceMinRange, byte gamePieceMaxRange) {
+	public BoardChange(byte moveFrom, byte moveTo) {
 		super();
-		this.gamePieceMinRange = gamePieceMinRange;
-		this.gamePieceMaxRange = gamePieceMaxRange;
-
+		this.setBoardPiecesIds(null);
 		this.setMove(moveTo, moveFrom);
 	}
 
+	/**
+	 * @param c
+	 */
 	public BoardChange(char c) {
 		super();
+		this.setBoardPiecesIds(null);
 		this.setMove(c);
+	}
+
+	/**
+	 * @param the         two bytes of the board change
+	 * @param boardPieces List of board Pieces that are available to create
+	 *                    (nullable)
+	 */
+	public BoardChange(char c, List<IBoardPiece> boardPieces) {
+		super();
+		this.setMove(c);
+	}
+
+	public List<Integer> getBoardPiecesIds() {
+		return boardPiecesIds;
+	}
+
+	public void setBoardPiecesIds(List<IBoardPiece> boardPieces) {
+		if (boardPiecesIds == null) {
+			this.boardPiecesIds = new ArrayList<>();
+		} else {
+			this.boardPiecesIds = boardPieces.stream().mapToInt(b -> b.getId()).boxed().toList();
+			;
+		}
 	}
 
 	public byte getMoveTo() {
@@ -97,14 +120,14 @@ public class BoardChange {
 
 			logger.debug("First byte is to move from postion: " + moveFrom);
 
-		} else if (moveFrom >= this.gamePieceMinRange && moveFrom <= this.maxBoardRange) {
+		} else if (this.boardPiecesIds.contains((int) moveFrom)) {
 			this.moveFrom = moveFrom;
 
 			logger.debug("First byte is to create a game peice of ID: " + moveFrom);
 		} else {
-			throw new BadRequestException(String.format(
-					"Byte move from [%s] is out of range board range [%s-%s] and game piece id range [%s-%s]", moveFrom,
-					0, this.maxBoardRange, this.gamePieceMinRange, this.gamePieceMaxRange));
+			throw new BadRequestException(
+					String.format("Byte move from [%s] is out of range board range [%s-%s] or an avliable board piece",
+							moveFrom, 0, this.maxBoardRange));
 		}
 
 		// It's +1 because that is piece taken
