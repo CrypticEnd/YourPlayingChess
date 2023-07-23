@@ -15,6 +15,7 @@ import com.cryptic.ypc.dal.UserRepository;
 import com.cryptic.ypc.exceptions.BadRequestException;
 import com.cryptic.ypc.exceptions.ForbiddenException;
 import com.cryptic.ypc.exceptions.NotFoundException;
+import com.cryptic.ypc.exceptions.UnauthorizedException;
 import com.cryptic.ypc.model.user.GuestUser;
 import com.cryptic.ypc.model.user.RegisteredUser;
 import com.cryptic.ypc.model.user.User;
@@ -58,11 +59,11 @@ public class UserService {
 		// Otherwise throw error
 		if (userFromDb != null) {
 			if (userFromDb.getClass() != GuestUser.class) {
-				throw new BadRequestException("Cannot save a user with ID that already exsits");
+				throw new ForbiddenException("Cannot save a user with ID that already exsits");
 			}
 
 			if (user.getClass() != RegisteredUser.class) {
-				throw new BadRequestException("Cannot save a user with ID that already exsits");
+				throw new ForbiddenException("Cannot save a user with ID that already exsits");
 			}
 
 			this.UpdateUserFromGuest((RegisteredUser) user);
@@ -115,14 +116,14 @@ public class UserService {
 	 */
 	public void updateUser(User user, Authentication auth) {
 		if(auth == null) {
-			throw new ForbiddenException("Do not have permission to update this user");
+			throw new UnauthorizedException("Do not have permission to update this user");
 		}
 		
 		User userFromDb = this.userRepository.findById(user.getId()).orElseThrow(() -> new NotFoundException(
 				String.format("User not found with id: %d. Cannot udate user", user.getId())));
 		
 		if(!auth.getName().equals(userFromDb.getUsername())) {
-			throw new ForbiddenException("Do not have permission to update this user");
+			throw new UnauthorizedException("Do not have permission to update this user");
 		}
 		
 		this.updateUser(user, userFromDb);
@@ -143,7 +144,7 @@ public class UserService {
 		}
 
 		if (userClass != userFromDb.getClass()) {
-			throw new BadRequestException("Cannot update users with miss-matched classes");
+			throw new ForbiddenException("Cannot update users with miss-matched classes");
 		}
 
 		this.checkUserName(user.getUsername());
