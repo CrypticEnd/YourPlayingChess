@@ -1,19 +1,21 @@
 package com.cryptic.ypc.game.piece;
 
+import java.util.List;
+
 import com.cryptic.ypc.game.BoardChange;
 import com.cryptic.ypc.game.BoardState;
-import com.cryptic.ypc.game.IBoardPiece;
+import com.cryptic.ypc.game.BoardPiece;
 import com.cryptic.ypc.game.mover.IMover;
 
 import lombok.ToString;
 
 @ToString
-public final class ConnectFourToken implements IBoardPiece {
+public final class ConnectFourToken extends BoardPiece {
 	private static ConnectFourToken INSTANCE;
-	private final byte id = 106;
-	private static final String name = "Token";
+	private static final byte id = 106;
 
 	private ConnectFourToken() {
+		this.name = "Token";
 	}
 
 	public static ConnectFourToken geToken() {
@@ -25,18 +27,13 @@ public final class ConnectFourToken implements IBoardPiece {
 	}
 
 	@Override
-	public Byte getId() {
-		return id;
-	}
-
-	@Override
-	public boolean move(IMover mover, BoardState boardState, BoardChange move) {
+	public List<BoardChange> move(IMover mover, BoardState boardState, BoardChange move) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
-	public String getName() {
-		return name;
+	public byte getId() {
+		return ConnectFourToken.id;
 	}
 }
