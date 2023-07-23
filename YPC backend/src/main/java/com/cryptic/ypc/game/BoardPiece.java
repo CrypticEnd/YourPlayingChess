@@ -11,8 +11,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * Board piece abstract class .
- * Expects pieces to be owned by a player
+ * Board piece abstract class . Expects pieces to be owned by a player
  * 
  * @author reece
  *
@@ -21,13 +20,20 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public abstract class BoardPiece {
+public abstract class BoardPiece implements Cloneable {
 	protected Player player = Player.NONE;
-		
+
 	public abstract List<BoardChange> move(IMover mover, BoardState boardState, BoardChange move);
 
 	public BoardPiece(Player player) {
 		super();
 		this.player = player;
 	}
+
+	/**
+	 * Forces each BoardPiece to have a clone method 
+	 */
+	@Override
+	protected abstract BoardPiece clone();
+
 }

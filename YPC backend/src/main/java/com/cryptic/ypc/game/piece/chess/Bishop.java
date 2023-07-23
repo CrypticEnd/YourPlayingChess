@@ -26,4 +26,9 @@ public final class Bishop extends BoardPiece {
 		return null;
 	}
 
+	@Override
+	protected BoardPiece clone() {
+		return new Bishop();
+	}
+
 }

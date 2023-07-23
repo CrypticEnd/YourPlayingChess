@@ -28,4 +28,9 @@ public final class Pawn extends BoardPiece {
 		return null;
 	}
 
+	@Override
+	protected BoardPiece clone() {
+		return new Pawn();
+	}
+
 }

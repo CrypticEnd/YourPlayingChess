@@ -37,6 +37,11 @@ public class King extends BoardPiece {
 		return null;
 	}
 
+	@Override
+	protected BoardPiece clone() {
+		return new King();
+	}
+
 
 
 }

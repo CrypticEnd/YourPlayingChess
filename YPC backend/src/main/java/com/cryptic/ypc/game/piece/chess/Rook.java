@@ -28,4 +28,9 @@ public final class Rook extends BoardPiece {
 		return null;
 	}
 
+	@Override
+	protected BoardPiece clone() {
+		return new Rook();
+	}
+
 }

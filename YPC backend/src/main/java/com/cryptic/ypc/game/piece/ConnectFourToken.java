@@ -28,4 +28,9 @@ public final class ConnectFourToken extends BoardPiece {
 		return null;
 	}
 
+	@Override
+	protected BoardPiece clone() {
+		return new ConnectFourToken();
+	}
+
 }

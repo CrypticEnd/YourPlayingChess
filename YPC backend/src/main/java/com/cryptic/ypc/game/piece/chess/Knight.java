@@ -28,4 +28,9 @@ public final class Knight extends BoardPiece {
 		return null;
 	}
 
+	@Override
+	protected BoardPiece clone() {
+		return new Knight();
+	}
+
 }
