@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class BoardState {
+	private final static int boardSize = 8;
+	
 	/**
 	 * This stores the position of each piece. So boardPieces[0] would be the A1
 	 */
@@ -24,8 +26,10 @@ public class BoardState {
 	 * @param boardPieces
 	 */
 	public void setBoardPieces(IBoardPiece[] boardPieces) {
-		if (boardPieces.length != 64) {
-			throw new BadRequestException("Board must have 64 spaces");
+		int expectedSize = BoardState.boardSize*BoardState.boardSize;
+		
+		if (boardPieces.length != expectedSize) {
+			throw new BadRequestException(String.format("Board must have %d spaces", expectedSize));
 		}
 
 		this.boardPieces = boardPieces;
