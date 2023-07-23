@@ -10,7 +10,7 @@ import lombok.ToString;
 @ToString
 public final class ConnectFourToken implements IBoardPiece {
 	private static ConnectFourToken INSTANCE;
-	private final byte id = 102;
+	private final byte id = 106;
 	private static final String name = "Token";
 
 	private ConnectFourToken() {

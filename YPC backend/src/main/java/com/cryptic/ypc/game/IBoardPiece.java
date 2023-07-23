@@ -9,7 +9,8 @@ import com.cryptic.ypc.game.mover.IMover;
  * 
  * 
  * Clained IDs
- * 		100-105 = Chess
+ * 		100-105 - 	Chess
+ * 		106 	-	Connect Four
  * 
  * 
  * @author reece
