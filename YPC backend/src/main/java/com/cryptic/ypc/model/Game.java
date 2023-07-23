@@ -16,6 +16,10 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
+//TODO change to have a list of players 
+// Have a enum for what player was first
+// Save board current state when game is being played 
+// So frontend wont have to send boardstate with each message 
 public class Game {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

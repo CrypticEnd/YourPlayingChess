@@ -12,7 +12,8 @@ public class BoardState {
 	
 	/**
 	 * This stores the position of each piece. So boardPieces[0] would be the A1
-	 * TODO change to a hasmap 
+	 * FIXME change to a hasmap 
+	 * Converts string to hasmap and vice vera
 	 */
 	private BoardPiece[] boardPieces;
 
