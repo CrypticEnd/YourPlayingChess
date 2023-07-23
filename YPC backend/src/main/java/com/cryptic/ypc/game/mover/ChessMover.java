@@ -13,6 +13,12 @@ import com.cryptic.ypc.game.piece.chess.Rook;
 
 public class ChessMover implements IChessMover{
 	private boolean canTakePiece = false;
+	
+	/**
+	 * Determines what board side the chess pieces start on
+	 * True to start at 0/0, false to start at the opsit 
+	 */
+	private boolean startZeroZero;
 
 	@Override
 	public List<BoardChange> moveBishop(BoardState boardState, Bishop bishop, BoardChange move) {

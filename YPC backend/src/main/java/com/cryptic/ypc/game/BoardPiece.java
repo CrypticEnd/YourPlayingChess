@@ -26,7 +26,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public abstract class IBoardPiece {
+public abstract class BoardPiece {
 	protected Player player;
 	protected String name;
 	

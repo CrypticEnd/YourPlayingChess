@@ -13,9 +13,9 @@ public class BoardState {
 	/**
 	 * This stores the position of each piece. So boardPieces[0] would be the A1
 	 */
-	private IBoardPiece[] boardPieces;
+	private BoardPiece[] boardPieces;
 
-	public BoardState(IBoardPiece[] boardPieces) {
+	public BoardState(BoardPiece[] boardPieces) {
 		super();
 		this.setBoardPieces(boardPieces);
 	}
@@ -25,7 +25,7 @@ public class BoardState {
 	 * 
 	 * @param boardPieces
 	 */
-	public void setBoardPieces(IBoardPiece[] boardPieces) {
+	public void setBoardPieces(BoardPiece[] boardPieces) {
 		int expectedSize = BoardState.boardSize*BoardState.boardSize;
 		
 		if (boardPieces.length != expectedSize) {

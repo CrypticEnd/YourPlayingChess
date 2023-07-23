@@ -44,7 +44,7 @@ public class BoardChange {
 	 * @param boardPieces List of board Pieces that are available to create
 	 *                    (nullable)
 	 */
-	public BoardChange(byte moveFrom, byte moveTo, List<IBoardPiece> boardPieces) {
+	public BoardChange(byte moveFrom, byte moveTo, List<BoardPiece> boardPieces) {
 		super();
 
 		this.setBoardPiecesIds(boardPieces);
@@ -76,7 +76,7 @@ public class BoardChange {
 	 * @param boardPieces List of board Pieces that are available to create
 	 *                    (nullable)
 	 */
-	public BoardChange(char c, List<IBoardPiece> boardPieces) {
+	public BoardChange(char c, List<BoardPiece> boardPieces) {
 		super();
 		this.setMove(c);
 	}
@@ -85,7 +85,7 @@ public class BoardChange {
 		return boardPiecesIds;
 	}
 
-	public void setBoardPiecesIds(List<IBoardPiece> boardPieces) {
+	public void setBoardPiecesIds(List<BoardPiece> boardPieces) {
 		if (boardPiecesIds == null) {
 			this.boardPiecesIds = new ArrayList<>();
 		} else {
