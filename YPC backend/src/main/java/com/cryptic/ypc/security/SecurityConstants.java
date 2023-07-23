@@ -14,7 +14,7 @@ public class SecurityConstants {
 	public static final String SIGN_UP_URL = "/user";
 	public static final String SIGN_UP_URL_REGISTERED = "/user/registered";
 	public static final String SIGN_IN_URL = "/auth/login";
-	public static final String[] ALLOWED_ORIGINS = { "http://localhost:32770", "http://crypticend.myds.me:32770" };
+	public static final String[] ALLOWED_ORIGINS = { "http://localhost:32771", "http://crypticend.myds.me:32771" };
 
 	public static byte[] getTokenSecret() {
 		return Base64.getDecoder().decode(

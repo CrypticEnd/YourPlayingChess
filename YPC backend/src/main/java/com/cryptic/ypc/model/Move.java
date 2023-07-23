@@ -20,7 +20,16 @@ public class Move {
 	/**
 	 * A Single move is stored as two bytes
 	 * Chars in java are two bytes (same as a short)
-	 * Using char because board Changes is saved as a string 
+	 * Using char because board Changes is saved as a string.
+	 * 
+	 * First byte
+	 * 		0-63 Represents Board position 
+	 * 		Out of range is create object of given ID 
+	 * 		Should relate to a board piece ID 
+	 * 
+	 * Second Byte
+	 * 		0-63 Represents Board position
+	 * 		Out of range is error
 	 */
 	private char move;
 	
