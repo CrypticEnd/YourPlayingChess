@@ -41,7 +41,6 @@ public class SecurityConfig {
 		// Get AuthenticationManager
 		AuthenticationManager authenticationManager = authenticationManagerBuilder.build();
 		http
-				// TODO allow for people to get game boards
 				.cors().and().csrf().disable().authorizeHttpRequests()
 				.requestMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL).permitAll()
 				.requestMatchers(HttpMethod.PUT, SecurityConstants.SIGN_UP_URL).permitAll()
