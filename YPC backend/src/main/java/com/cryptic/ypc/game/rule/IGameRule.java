@@ -17,9 +17,5 @@ import com.cryptic.ypc.model.enums.Player;
  *
  */
 public interface IGameRule {
-	public BoardState getDefaultBoardState();
-
-	public GameType getGameType();
-
 	public Move makeMove(String boardState, BoardChange move, Player playerTurn);
 }
