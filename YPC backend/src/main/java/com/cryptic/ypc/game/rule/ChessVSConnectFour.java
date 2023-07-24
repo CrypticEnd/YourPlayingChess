@@ -1,10 +1,6 @@
 package com.cryptic.ypc.game.rule;
 
-import org.springframework.data.repository.query.ParameterOutOfBoundsException;
-
 import com.cryptic.ypc.game.BoardChange;
-import com.cryptic.ypc.game.BoardState;
-import com.cryptic.ypc.model.GameType;
 import com.cryptic.ypc.model.Move;
 import com.cryptic.ypc.model.enums.Player;
 
