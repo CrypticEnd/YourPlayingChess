@@ -27,7 +27,7 @@ public class Move {
 	private BoardChange move;
 
 	/**
-	 * Like move each char in this string is a move on the board Each move saved as
+	 * Like with move each char in this string is a move on the board Each move saved as
 	 * two bytes.
 	 * 
 	 * Why have move and board changes: Move is for the user inputed move board
