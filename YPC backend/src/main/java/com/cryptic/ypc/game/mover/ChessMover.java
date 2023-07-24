@@ -11,8 +11,16 @@ import com.cryptic.ypc.game.piece.chess.Pawn;
 import com.cryptic.ypc.game.piece.chess.Queen;
 import com.cryptic.ypc.game.piece.chess.Rook;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class ChessMover implements IChessMover{
-	private boolean canTakePiece = false;
+	private boolean canTakePiece;
+	private boolean canTakeSelf;
 	
 	/**
 	 * Determines what board side the chess pieces start on

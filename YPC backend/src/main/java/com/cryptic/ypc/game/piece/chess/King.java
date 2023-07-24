@@ -5,6 +5,7 @@ import java.util.List;
 import com.cryptic.ypc.game.BoardChange;
 import com.cryptic.ypc.game.BoardState;
 import com.cryptic.ypc.game.BoardPiece;
+import com.cryptic.ypc.game.mover.IChessMover;
 import com.cryptic.ypc.game.mover.IMover;
 import com.cryptic.ypc.model.enums.Player;
 
@@ -24,7 +25,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class King extends BoardPiece {
+public class King extends ChessPiece {
 	private static final String name = "King";
 
 	public King(Player player) {
@@ -33,8 +34,9 @@ public class King extends BoardPiece {
 	
 	@Override
 	public List<BoardChange> move(IMover mover, BoardState boardState, BoardChange move) {
-		// TODO Auto-generated method stub
-		return null;
+		IChessMover chessMover = this.convertIMoverOrThrow(mover);
+		
+		return chessMover.moveKing(boardState, this, move);
 	}
 
 	@Override
