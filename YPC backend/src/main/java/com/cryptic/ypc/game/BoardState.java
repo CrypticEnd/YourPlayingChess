@@ -1,6 +1,7 @@
 package com.cryptic.ypc.game;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import com.cryptic.ypc.exceptions.BadRequestException;
 import com.cryptic.ypc.exceptions.ForbiddenException;
@@ -55,6 +56,29 @@ public class BoardState {
 	 */
 	public void setBoard(String boardString) throws NotFoundException, BadRequestException, ForbiddenException {
 		this.boardMap = this.convertBoardStringToState(boardString);
+	}
+
+	/**
+	 * Converts current boardstae into a string
+	 * 
+	 * @return Returns a string contain each BoardPiece (type, no other data) with a
+	 *         position attached
+	 */
+	public String getBoardState() {
+		StringBuilder stringBuilder = new StringBuilder();
+
+		for (Map.Entry<Byte, BoardPiece> entry : boardMap.entrySet()) {
+			Byte key = entry.getKey();
+			BoardPiece val = entry.getValue();
+
+			byte pieceId = BoardPieceIdMap.getPieceId(val);
+
+			char c = (char) (((key & 0xFF) << 8) + (pieceId & 0xFF));
+
+			stringBuilder.append(c);
+		}
+
+		return stringBuilder.toString();
 	}
 
 	/**
