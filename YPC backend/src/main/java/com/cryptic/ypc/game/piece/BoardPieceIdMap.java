@@ -1,16 +1,16 @@
-package com.cryptic.ypc.game;
+package com.cryptic.ypc.game.piece;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import com.cryptic.ypc.exceptions.NotFoundException;
-import com.cryptic.ypc.game.piece.ConnectFourToken;
 import com.cryptic.ypc.game.piece.chess.Bishop;
 import com.cryptic.ypc.game.piece.chess.King;
 import com.cryptic.ypc.game.piece.chess.Knight;
 import com.cryptic.ypc.game.piece.chess.Pawn;
 import com.cryptic.ypc.game.piece.chess.Queen;
 import com.cryptic.ypc.game.piece.chess.Rook;
+import com.cryptic.ypc.game.piece.connectFour.ConnectFourToken;
 
 /**
  * This class is made to store all board pieces and convert between them

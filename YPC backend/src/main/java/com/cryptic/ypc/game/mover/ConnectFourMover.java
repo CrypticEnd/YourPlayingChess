@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.cryptic.ypc.game.BoardChange;
 import com.cryptic.ypc.game.BoardState;
-import com.cryptic.ypc.game.piece.ConnectFourToken;
+import com.cryptic.ypc.game.piece.connectFour.ConnectFourToken;
 
 public class ConnectFourMover extends ChessMover implements IConnectFourMover{
 

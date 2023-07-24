@@ -9,6 +9,9 @@ import org.slf4j.LoggerFactory;
 import com.cryptic.ypc.exceptions.BadRequestException;
 import com.cryptic.ypc.exceptions.ForbiddenException;
 import com.cryptic.ypc.exceptions.NotFoundException;
+import com.cryptic.ypc.game.piece.BoardPiece;
+import com.cryptic.ypc.game.piece.BoardPieceIdMap;
+
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor

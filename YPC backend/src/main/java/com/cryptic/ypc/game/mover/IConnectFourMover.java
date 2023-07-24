@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.cryptic.ypc.game.BoardChange;
 import com.cryptic.ypc.game.BoardState;
-import com.cryptic.ypc.game.piece.ConnectFourToken;
+import com.cryptic.ypc.game.piece.connectFour.ConnectFourToken;
 
 /**
  * This uses the Visitor pattern Returns a list of board changes It's own move

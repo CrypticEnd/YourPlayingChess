@@ -1,11 +1,11 @@
-package com.cryptic.ypc.game.piece;
+package com.cryptic.ypc.game.piece.connectFour;
 
 import java.util.List;
 
 import com.cryptic.ypc.game.BoardChange;
 import com.cryptic.ypc.game.BoardState;
-import com.cryptic.ypc.game.BoardPiece;
 import com.cryptic.ypc.game.mover.IMover;
+import com.cryptic.ypc.game.piece.BoardPiece;
 import com.cryptic.ypc.model.enums.Player;
 
 import lombok.Getter;
@@ -29,7 +29,7 @@ public final class ConnectFourToken extends BoardPiece {
 	}
 
 	@Override
-	protected BoardPiece clone() {
+	public BoardPiece clone() {
 		return new ConnectFourToken();
 	}
 

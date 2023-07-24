@@ -4,9 +4,9 @@ import java.util.List;
 
 import com.cryptic.ypc.game.BoardChange;
 import com.cryptic.ypc.game.BoardState;
-import com.cryptic.ypc.game.BoardPiece;
 import com.cryptic.ypc.game.mover.IChessMover;
 import com.cryptic.ypc.game.mover.IMover;
+import com.cryptic.ypc.game.piece.BoardPiece;
 import com.cryptic.ypc.model.enums.Player;
 
 import lombok.Getter;
@@ -31,7 +31,7 @@ public final class Pawn extends ChessPiece {
 	}
 
 	@Override
-	protected BoardPiece clone() {
+	public BoardPiece clone() {
 		return new Pawn();
 	}
 

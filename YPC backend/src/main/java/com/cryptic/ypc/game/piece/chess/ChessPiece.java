@@ -1,8 +1,8 @@
 package com.cryptic.ypc.game.piece.chess;
 
-import com.cryptic.ypc.game.BoardPiece;
 import com.cryptic.ypc.game.mover.IChessMover;
 import com.cryptic.ypc.game.mover.IMover;
+import com.cryptic.ypc.game.piece.BoardPiece;
 import com.cryptic.ypc.model.enums.Player;
 
 import lombok.NoArgsConstructor;

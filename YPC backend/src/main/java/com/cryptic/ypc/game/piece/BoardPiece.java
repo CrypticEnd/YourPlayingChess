@@ -1,7 +1,9 @@
-package com.cryptic.ypc.game;
+package com.cryptic.ypc.game.piece;
 
 import java.util.List;
 
+import com.cryptic.ypc.game.BoardChange;
+import com.cryptic.ypc.game.BoardState;
 import com.cryptic.ypc.game.mover.IMover;
 import com.cryptic.ypc.model.enums.Player;
 
@@ -34,6 +36,6 @@ public abstract class BoardPiece implements Cloneable {
 	 * Forces each BoardPiece to have a clone method 
 	 */
 	@Override
-	protected abstract BoardPiece clone();
+	public abstract BoardPiece clone();
 
 }

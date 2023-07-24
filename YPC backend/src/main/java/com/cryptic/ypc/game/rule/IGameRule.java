@@ -1,5 +1,7 @@
-package com.cryptic.ypc.game;
+package com.cryptic.ypc.game.rule;
 
+import com.cryptic.ypc.game.BoardChange;
+import com.cryptic.ypc.game.BoardState;
 import com.cryptic.ypc.model.GameType;
 import com.cryptic.ypc.model.Move;
 import com.cryptic.ypc.model.enums.Player;
@@ -14,7 +16,7 @@ import com.cryptic.ypc.model.enums.Player;
  * @author reece
  *
  */
-public interface IGame {
+public interface IGameRule {
 	public BoardState getDefaultBoardState();
 
 	public GameType getGameType();
