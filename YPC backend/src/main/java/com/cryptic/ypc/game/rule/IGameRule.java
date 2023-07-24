@@ -17,13 +17,19 @@ import com.cryptic.ypc.model.enums.Player;
  */
 public interface IGameRule {
 	/**
-	 * This makes a move on a gameboard if move can be made. Returns null if mone is
-	 * illegal
-	 * FIXME need to return a boardstate to update game object 
-	 * @param boardState
-	 * @param move
-	 * @param playerTurn
-	 * @return
+	 * This checks if a movie is valid given parameters. If move is valid will work
+	 * out all the changes made to the board from that move and the board state
+	 * after the move is completed
+	 * 
+	 * @param boardState The current boardstate of a game in string format (how it
+	 *                   is saved in Databases)
+	 * @param move       A single board change, that will possible effect the game
+	 *                   board in a number of ways
+	 * @param playerTurn Whos turn is it currently for the purposes of checking if
+	 *                   move is vaild
+	 * @return Returns the given BoardChange as a move object with all the
+	 *         boardchanges filled out, and the boardStateAfterMove Set. If move is
+	 *         invaild will return null
 	 */
 	public Move makeMove(String boardState, BoardChange move, Player playerTurn);
 
