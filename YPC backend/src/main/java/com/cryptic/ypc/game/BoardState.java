@@ -3,16 +3,19 @@ package com.cryptic.ypc.game;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.cryptic.ypc.exceptions.BadRequestException;
 import com.cryptic.ypc.exceptions.ForbiddenException;
 import com.cryptic.ypc.exceptions.NotFoundException;
-
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 public class BoardState {
 	protected final static int boardSize = 8;
+
+	private static Logger logger = LoggerFactory.getLogger(BoardState.class);
 
 	/**
 	 * Stores a BoardPiece at current position. Protected so it can be used by
@@ -67,6 +70,8 @@ public class BoardState {
 	public String getBoardState() {
 		StringBuilder stringBuilder = new StringBuilder();
 
+		logger.debug("Converting boardState into string");
+
 		for (Map.Entry<Byte, BoardPiece> entry : boardMap.entrySet()) {
 			Byte key = entry.getKey();
 			BoardPiece val = entry.getValue();
@@ -75,10 +80,16 @@ public class BoardState {
 
 			char c = (char) (((key & 0xFF) << 8) + (pieceId & 0xFF));
 
+			logger.debug(String.format("Converting BoardPos [%d] and BoardPieceId [%d] into %s", key, pieceId, c));
+
 			stringBuilder.append(c);
 		}
 
-		return stringBuilder.toString();
+		String boardState = stringBuilder.toString();
+
+		logger.debug("Converted String: " + boardState);
+
+		return boardState;
 	}
 
 	/**
@@ -119,6 +130,8 @@ public class BoardState {
 	public BoardPiece getPieceAtPostion(byte x, byte y) {
 		byte boardPos = (byte) (y * boardSize + x);
 
+		logger.debug(String.format("Converting X: %d, Y: %d, into postion: %d", x, y, boardPos));
+
 		return this.getPieceAtPostion(boardPos);
 	}
 
@@ -140,6 +153,8 @@ public class BoardState {
 			throws NotFoundException, BadRequestException, ForbiddenException {
 		HashMap<Byte, BoardPiece> map = new HashMap<>();
 
+		logger.debug(String.format("Beginning convertion of string [%s] into boardState", boardString));
+
 		// This gets the upper range (non inclusive) as 0 is a position
 		int boardRange = boardSize * boardSize;
 
@@ -148,6 +163,8 @@ public class BoardState {
 		for (char c : boardPiecePos) {
 			byte boardPos = (byte) (c >>> 8);
 			byte bordPieceId = (byte) c;
+
+			logger.debug(String.format("Char [%s] becamse [%d] and [%d]", c, boardPos, bordPieceId));
 
 			// If board pos is out of range 0 - (boardRange-1)
 			if (boardPos < 0 || boardPos >= boardRange) {
@@ -164,6 +181,8 @@ public class BoardState {
 
 			// This throws not found
 			map.put(boardPos, BoardPieceIdMap.getBoardPieceFromId(bordPieceId));
+
+			logger.debug("Board postion and ID added to boardState");
 		}
 
 		return map;
