@@ -21,4 +21,6 @@ public interface IGameRule {
 	public Player calculatePlayerTurn(Player whoWentFirst, int amountOfPlayers, int AmountOfTurns);
 
 	public boolean canAddPlayer(int amountOfCurrentPlayers);
+	
+	public boolean canStartGame(int amountOfCurrentPlayers);
 }
