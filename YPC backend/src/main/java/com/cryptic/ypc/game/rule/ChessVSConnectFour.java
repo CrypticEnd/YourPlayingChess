@@ -57,18 +57,11 @@ public final class ChessVSConnectFour implements IGameRule {
 		}
 	}
 
-	/**
-	 * Checks if a player can be added to a game based on player max amount
-	 */
 	@Override
 	public boolean canAddPlayer(int amountOfCurrentPlayers) {
 		return amountOfCurrentPlayers < playerMaxAmount;
 	}
 
-	/**
-	 * Checks that a game can start. If it meets the min amount of players and max
-	 * amount of players
-	 */
 	@Override
 	public boolean canStartGame(int amountOfCurrentPlayers) {
 		return amountOfCurrentPlayers >= playerMinAmount && amountOfCurrentPlayers <= playerMaxAmount;
