@@ -3,6 +3,7 @@ package com.cryptic.ypc.model;
 import java.util.List;
 
 import com.cryptic.ypc.game.BoardChange;
+import com.cryptic.ypc.game.BoardState;
 import com.cryptic.ypc.model.attributeConverter.BoardChangeConverter;
 import com.cryptic.ypc.model.attributeConverter.ListBoardChangeConverter;
 
@@ -35,4 +36,7 @@ public class Move {
 	 */
 	@Convert(converter = ListBoardChangeConverter.class)
 	private List<BoardChange> boardChanges;
+	
+	@Transient
+	private BoardState boardStateAftermove;
 }
