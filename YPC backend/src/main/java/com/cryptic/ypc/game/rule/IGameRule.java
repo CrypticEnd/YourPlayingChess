@@ -7,15 +7,18 @@ import com.cryptic.ypc.model.Move;
 import com.cryptic.ypc.model.enums.Player;
 
 /**
- * Game implementation in most cases should be a singleton. It needs to store a
- * gametype, IMover and rules
+ * Game rule implementation in most cases should be a singleton.
  * 
- * Main functionality is to convert a single board change into many moves uses
- * the IMover
+ * Main functionality is to store game rules and handle how the game moves and
+ * "plays"
  * 
  * @author reece
  *
  */
 public interface IGameRule {
 	public Move makeMove(String boardState, BoardChange move, Player playerTurn);
+
+	public Player calculatePlayerTurn(Player whoWentFirst, int amountOfPlayers, int AmountOfTurns);
+
+	public boolean canAddPlayer(int amountOfCurrentPlayers);
 }
