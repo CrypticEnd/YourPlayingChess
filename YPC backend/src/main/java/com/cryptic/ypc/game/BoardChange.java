@@ -37,26 +37,19 @@ public class BoardChange {
 	/**
 	 * @param moveTo   First move byte
 	 * @param moveFrom Second move byte
+	 * @throws BadRequestException If any of these bytes are out of range will throw
+	 *                             bad request
 	 */
-	public BoardChange(byte moveFrom, byte moveTo) {
+	public BoardChange(byte moveFrom, byte moveTo) throws BadRequestException {
 		super();
 		this.setMove(moveTo, moveFrom);
 	}
 
 	/**
-	 * @param c
+	 * @param c Stores two bytes related to two parts of a board change
+	 * @throws BadRequestException If char is out of range throw bad request
 	 */
-	public BoardChange(char c) {
-		super();
-		this.setMove(c);
-	}
-
-	/**
-	 * @param the         two bytes of the board change
-	 * @param boardPieces List of board Pieces that are available to create
-	 *                    (nullable)
-	 */
-	public BoardChange(char c, List<BoardPiece> boardPieces) {
+	public BoardChange(char c) throws BadRequestException {
 		super();
 		this.setMove(c);
 	}
@@ -73,7 +66,11 @@ public class BoardChange {
 		return (char) (((moveTo & 0xFF) << 8) + (moveFrom & 0xFF));
 	}
 
-	public void setMove(char c) {
+	/**
+	 * @param c Stores two bytes related to two parts of a board change
+	 * @throws BadRequestException If char is out of range throw bad request
+	 */
+	public void setMove(char c) throws BadRequestException {
 		short s = (short) c;
 
 		byte[] moveArr = new byte[] { (byte) (s >>> 8), (byte) s };
@@ -81,7 +78,15 @@ public class BoardChange {
 		this.setMove(moveArr[0], moveArr[1]);
 	}
 
-	private void setMove(byte moveFrom, byte moveTo) {
+	/**
+	 * Sets the move of the board pieces
+	 * 
+	 * @param moveFrom The position moving from (or piece id for creation)
+	 * @param moveTo   The position moving to (or one out of range for deletion)
+	 * @throws BadRequestException If any of these bytes are out of range will throw
+	 *                             bad request
+	 */
+	private void setMove(byte moveFrom, byte moveTo) throws BadRequestException {
 		if (moveFrom >= 0 && moveFrom <= maxBoardRange) {
 			this.moveTo = moveFrom;
 
