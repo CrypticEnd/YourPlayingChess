@@ -10,7 +10,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.cryptic</groupId>
-	<artifactId>YPC.backend</artifactId>
+	<artifactId>YPC_backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>YPC backend</name>
 	<description>Backend for Your playing Chess</description>

@@ -4,7 +4,7 @@ services:
     image: cryptic/ypc/backend
     container_name: ypc-backend
     build:
-      context: YPC backend
+      context: YPC_backend
       dockerfile: Dockerfile
     restart: always
     depends_on:
