@@ -1,5 +1,6 @@
 package com.cryptic.ypc.game;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -137,6 +138,24 @@ public class BoardState {
 		logger.debug(String.format("Converting X: %d, Y: %d, into postion: %d", x, y, boardPos));
 
 		return this.getPieceAtPostion(boardPos);
+	}
+	
+	/**
+	 * @return A deep clone list of BoardPiece on the current board 
+	 */
+	public List<BoardPiece> getAllBoardPieces(){
+		List<BoardPiece> pieces = new ArrayList<>();
+		
+		for (Map.Entry<Byte, BoardPiece> entry : boardMap.entrySet()) {
+			BoardPiece boardPiece = entry.getValue();
+
+			BoardPiece pieceClone = boardPiece.clone();
+			pieceClone.setPlayer(boardPiece.getPlayer());
+			
+			pieces.add(pieceClone);
+		}
+		
+		return pieces;
 	}
 
 	/**
