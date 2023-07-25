@@ -82,15 +82,13 @@ public final class ChessVSConnectFour implements IGameRule {
 		while (changes.size() != 0) {
 			// Update board state
 			boardState.performBoardChanges(changes);
-			
+
 			changesToSave.addAll(changes);
-			
+
 			changes.clear();
 
 			// Check if any connect four peices need to move
-			boardState.getAllBoardPieces().stream()
-			.filter(b -> b instanceof ConnectFourToken)
-			.forEach(token -> {
+			boardState.getAllBoardPieces().stream().filter(b -> b instanceof ConnectFourToken).forEach(token -> {
 				changes.addAll(token.move(mover, boardState, null));
 			});
 		}
@@ -98,7 +96,7 @@ public final class ChessVSConnectFour implements IGameRule {
 		moveToSave.setMove(move);
 		moveToSave.setBoardChanges(changesToSave);
 		moveToSave.setBoardStateAftermove(boardState);
-		
+
 		return moveToSave;
 	}
 
@@ -138,10 +136,34 @@ public final class ChessVSConnectFour implements IGameRule {
 		return amountOfCurrentPlayers >= playerMinAmount && amountOfCurrentPlayers <= playerMaxAmount;
 	}
 
+	/**
+	 * To win this game as player 1 (chess player) player 2 (connect four) cannot
+	 * make another move. To win as a connect four player you need to have four in a
+	 * row.
+	 * 
+	 * If The connect four player cannot move but has a connect four. Connect four
+	 * player (player two) wins.
+	 */
 	@Override
 	public Player checkGameWinner(BoardState boardState) {
-		// TODO Auto-generated method stub
-		return null;
+		BoardPiece[][] boardPieces = boardState.getAllBoardPiecesWithPostions();
+		int lastArrayIndex = boardPieces.length - 1;
+
+		// ------Connect four win condition------
+		// TODO check for connect four
+
+		// ------Connect four lose condition------
+
+		// For each board title in the last row
+		// Check if there is a spot for player two to go
+		for (int i = 0; i < boardPieces[lastArrayIndex].length; i++) {
+			if (boardPieces[lastArrayIndex][i] == null) {
+				return Player.NONE;
+			}
+		}
+
+		// Player one wins because player two didn't win and cannot move
+		return Player.ONE;
 	}
 
 }
