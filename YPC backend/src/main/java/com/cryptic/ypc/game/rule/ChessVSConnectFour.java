@@ -97,8 +97,6 @@ public final class ChessVSConnectFour implements IGameRule {
 			});
 		}
 
-		// TODO check for win?
-
 		moveToSave.setMove(move);
 		moveToSave.setBoardChanges(changesToSave);
 		moveToSave.setBoardStateAftermove(board);
@@ -140,6 +138,12 @@ public final class ChessVSConnectFour implements IGameRule {
 	@Override
 	public boolean canStartGame(int amountOfCurrentPlayers) {
 		return amountOfCurrentPlayers >= playerMinAmount && amountOfCurrentPlayers <= playerMaxAmount;
+	}
+
+	@Override
+	public Player checkGameWinner(String boardState) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

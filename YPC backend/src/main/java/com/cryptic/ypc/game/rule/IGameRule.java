@@ -34,6 +34,15 @@ public interface IGameRule {
 	public Move makeMove(String boardState, BoardChange move, Player playerTurn);
 
 	/**
+	 * Checks if the game is won and if so returns a player object
+	 * 
+	 * @param boardState The current boardstate of a game in string format (how it
+	 *                   is saved in Databases)
+	 * @return The player who won or NONE if no player has won
+	 */
+	public Player checkGameWinner(String boardState);
+
+	/**
 	 * Works out the current player turn based on who went first, amount of players
 	 * and amount of turns taken. Returns NONE if data is incorrect
 	 * 
