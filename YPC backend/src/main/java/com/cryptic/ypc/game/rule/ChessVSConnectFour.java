@@ -175,6 +175,7 @@ public final class ChessVSConnectFour implements IGameRule {
 
 				// If not connect four
 				if (!this.checkIfPieceIsConnectFourToken(tmp)) {
+					verticalCounter[y] = 0;
 					continue;
 				}
 
