@@ -162,20 +162,21 @@ public class BoardState {
 	 * Returns an array of arrays. Where [0][0] is 0,0 on the board. Size is based
 	 * on {@link BoardState.boardSize}
 	 * 
-	 * @return An array of arrays of board pieces [X][Y]. If no board piece exists that
-	 *         Position in the array will be null. The board pieces are deep cloned
+	 * @return An array of arrays of board pieces [X][Y]. If no board piece exists
+	 *         that Position in the array will be null. The board pieces are deep
+	 *         cloned
 	 */
 	public BoardPiece[][] getAllBoardPiecesWithPostions() {
 		BoardPiece[][] boardPieces = new BoardPiece[boardSize][boardSize];
-		
+
 		for (Map.Entry<Byte, BoardPiece> entry : boardMap.entrySet()) {
 			// Add one because 1/1 is stored as 0/0
 			int absolutePos = entry.getKey() + 1;
-			
+
 			int x = absolutePos % boardSize;
 			// Take one away because arrays start at index 0
 			int y = (absolutePos / boardSize) - 1;
-			
+
 			// Deep cloning the BoardPiece
 			BoardPiece boardPiece = entry.getValue();
 
@@ -184,12 +185,13 @@ public class BoardState {
 
 			boardPieces[x][y] = pieceClone;
 		}
-		
+
 		return boardPieces;
 	}
 
 	/**
-	 * Perform a list of board changes and updates the state of the bord
+	 * Perform a list of board changes and updates the state of the board. Assumes
+	 * boardChanges are correct and does not perform move validation
 	 * 
 	 * @param changes A list of changes to be made
 	 */
