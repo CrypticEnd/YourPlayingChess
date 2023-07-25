@@ -139,23 +139,53 @@ public class BoardState {
 
 		return this.getPieceAtPostion(boardPos);
 	}
-	
+
 	/**
-	 * @return A deep clone list of BoardPiece on the current board 
+	 * @return A deep clone list of BoardPiece on the current board
 	 */
-	public List<BoardPiece> getAllBoardPieces(){
+	public List<BoardPiece> getAllBoardPieces() {
 		List<BoardPiece> pieces = new ArrayList<>();
-		
+
 		for (Map.Entry<Byte, BoardPiece> entry : boardMap.entrySet()) {
 			BoardPiece boardPiece = entry.getValue();
 
 			BoardPiece pieceClone = boardPiece.clone();
 			pieceClone.setPlayer(boardPiece.getPlayer());
-			
+
 			pieces.add(pieceClone);
 		}
-		
+
 		return pieces;
+	}
+
+	/**
+	 * Returns an array of arrays. Where [0][0] is 0,0 on the board. Size is based
+	 * on {@link BoardState.boardSize}
+	 * 
+	 * @return An array of arrays of board pieces. If no board piece exists that
+	 *         Position in the array will be null. The board pieces are deep cloned
+	 */
+	public BoardPiece[][] getAllBoardPiecesWithPostions() {
+		BoardPiece[][] boardPieces = new BoardPiece[boardSize][boardSize];
+		
+		for (Map.Entry<Byte, BoardPiece> entry : boardMap.entrySet()) {
+			// Add one because 1/1 is stored as 0/0
+			int absolutePos = entry.getKey() + 1;
+			
+			int x = absolutePos % boardSize;
+			// Take one away because arrays start at index 0
+			int y = (absolutePos / boardSize) - 1;
+			
+			// Deep cloning the BoardPiece
+			BoardPiece boardPiece = entry.getValue();
+
+			BoardPiece pieceClone = boardPiece.clone();
+			pieceClone.setPlayer(boardPiece.getPlayer());
+
+			boardPieces[x][y] = pieceClone;
+		}
+		
+		return boardPieces;
 	}
 
 	/**
