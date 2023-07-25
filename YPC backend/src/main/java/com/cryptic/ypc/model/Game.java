@@ -54,6 +54,8 @@ public class Game {
 
 	private Player turnFirst;
 	
+	private Player winner;
+	
 	@Convert(converter = BoardStateConverter.class)
 	private BoardState currentBoardState;
 
