@@ -196,7 +196,7 @@ public final class ChessVSConnectFour implements IGameRule {
 					return Player.TWO;
 				}
 
-				if (checkDownwardsHorizontal(boardPieces, x, y)) {
+				if (checkUpwardsHorizontal(boardPieces, x, y)) {
 					logger.debug("Player two won from horizontal");
 					return Player.TWO;
 				}
@@ -220,12 +220,74 @@ public final class ChessVSConnectFour implements IGameRule {
 		return Player.ONE;
 	}
 
-	protected boolean checkDownwardsHorizontal(BoardPiece[][] boardPieces, int x, int y) {
+	/**
+	 * Checks if a connect four player has won from horizontal. Takes in a position
+	 * of connect four token and checks if a horizontal won can be found from above
+	 * it. Does not check below as its assumed That they have been checked before 
+	 * 
+	 * @param boardPieces Current board pieces with set positions
+	 * @param tokenX      The position X of token to check
+	 * @param tokenY      The position Y of token to check
+	 * @return True if horizontal won found false otherwise
+	 */
+	protected boolean checkUpwardsHorizontal(BoardPiece[][] boardPieces, int tokenX, int tokenY) {
+		int indexOffset = 1 ,leftCount = 0, rightCount = 0;
+		
+		logger.debug(String.format("Checking horizontal win of piece [%d/%d]", tokenX, tokenY));
+		
+		// Impossible to have a connect four if array is out of range 
+		if(boardPieces.length >= tokenY+tokensInARowToWin) {
+			logger.debug("Cannot get connect four with remain board");
+			return false;
+		}
+			
+		
+		for (int y = tokenY; y < boardPieces.length; y++) {
+			// Check left
+			// If array is not out of range and count has gained +1 each loop
+			if(tokenX - indexOffset >= 0 && leftCount == indexOffset-1) {
+				BoardPiece temp = boardPieces[tokenX - indexOffset][y];
+				
+				if(checkIfPieceIsConnectFourToken(temp)) {
+					leftCount++;
+				}
+			}
+			
+			// Check right
+			// If array is not out of range and count has gained +1 each loop
+			if(tokenX + indexOffset < boardPieces.length && rightCount == indexOffset-1) {
+				BoardPiece temp = boardPieces[tokenX + indexOffset][y];
+				
+				if(checkIfPieceIsConnectFourToken(temp)) {
+					rightCount++;
+				}
+			}
+			
+			// Check if both values are still counting 			
+			if(leftCount != indexOffset && rightCount != indexOffset) {
+				return false;
+			}
+
+			// Check win
+			if(leftCount == tokensInARowToWin || rightCount == tokensInARowToWin) {
+				return true;
+			}
+				
+			// Add one to offset 
+			indexOffset++;
+		}
 
 		return false;
 
 	}
 
+	/**
+	 * This method will be called a lot during check winner method this makes it
+	 * more readable to use
+	 * 
+	 * @param piece
+	 * @return True if player has a connect four. False otherwise
+	 */
 	protected boolean checkIfPieceIsConnectFourToken(BoardPiece piece) {
 		return piece instanceof ConnectFourToken;
 	}
