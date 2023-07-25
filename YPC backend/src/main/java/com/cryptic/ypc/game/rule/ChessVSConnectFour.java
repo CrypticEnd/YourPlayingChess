@@ -37,11 +37,9 @@ public final class ChessVSConnectFour implements IGameRule {
 	}
 
 	@Override
-	public Move makeMove(String boardState, BoardChange move, Player playerTurn) {
-		BoardState board = new BoardState(boardState);
-
+	public Move makeMove(BoardState boardState, BoardChange move, Player playerTurn) {
 		// Get peice at current POS
-		BoardPiece piece = board.getPieceAtPostion(move.getMoveFrom());
+		BoardPiece piece = boardState.getPieceAtPostion(move.getMoveFrom());
 
 		// If null check if its creating a board token
 		if (piece == null) {
@@ -70,7 +68,7 @@ public final class ChessVSConnectFour implements IGameRule {
 			}
 		}
 
-		List<BoardChange> changes = piece.move(mover, board, move);
+		List<BoardChange> changes = piece.move(mover, boardState, move);
 
 		// If no changes made something went wrong
 		if (changes.size() == 0) {
@@ -83,23 +81,23 @@ public final class ChessVSConnectFour implements IGameRule {
 		// Change board state while changes are needed to make
 		while (changes.size() != 0) {
 			// Update board state
-			board.performBoardChanges(changes);
+			boardState.performBoardChanges(changes);
 			
 			changesToSave.addAll(changes);
 			
 			changes.clear();
 
 			// Check if any connect four peices need to move
-			board.getAllBoardPieces().stream()
+			boardState.getAllBoardPieces().stream()
 			.filter(b -> b instanceof ConnectFourToken)
 			.forEach(token -> {
-				changes.addAll(token.move(mover, board, null));
+				changes.addAll(token.move(mover, boardState, null));
 			});
 		}
 
 		moveToSave.setMove(move);
 		moveToSave.setBoardChanges(changesToSave);
-		moveToSave.setBoardStateAftermove(board);
+		moveToSave.setBoardStateAftermove(boardState);
 		
 		return moveToSave;
 	}
@@ -141,7 +139,7 @@ public final class ChessVSConnectFour implements IGameRule {
 	}
 
 	@Override
-	public Player checkGameWinner(String boardState) {
+	public Player checkGameWinner(BoardState boardState) {
 		// TODO Auto-generated method stub
 		return null;
 	}

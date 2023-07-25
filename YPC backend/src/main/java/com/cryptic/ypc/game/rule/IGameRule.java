@@ -31,7 +31,7 @@ public interface IGameRule {
 	 *         boardchanges filled out, and the boardStateAfterMove Set. If move is
 	 *         invaild will return null
 	 */
-	public Move makeMove(String boardState, BoardChange move, Player playerTurn);
+	public Move makeMove(BoardState boardState, BoardChange move, Player playerTurn);
 
 	/**
 	 * Checks if the game is won and if so returns a player object
@@ -40,7 +40,7 @@ public interface IGameRule {
 	 *                   is saved in Databases)
 	 * @return The player who won or NONE if no player has won
 	 */
-	public Player checkGameWinner(String boardState);
+	public Player checkGameWinner(BoardState boardState);
 
 	/**
 	 * Works out the current player turn based on who went first, amount of players
