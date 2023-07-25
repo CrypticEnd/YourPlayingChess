@@ -9,16 +9,20 @@ import org.slf4j.LoggerFactory;
 
 import com.cryptic.ypc.exceptions.BadRequestException;
 import com.cryptic.ypc.game.piece.BoardPieceIdMap;
+import com.cryptic.ypc.model.enums.MoveType;
 
 /**
- * A single move is stored as a char this class stores each move and can convert
- * to required data types
+ * A single move is stored as a char this class stores and value checks each
+ * move able to convert to required data types
  * 
  * @author reece
  *
  */
 public class BoardChange {
-	private byte maxBoardRange = 63;
+	/**
+	 * Non inclusive
+	 */
+	private byte maxBoardRange;
 
 	/**
 	 * 0-maxBoardRange (63) Represents Board position
@@ -28,10 +32,17 @@ public class BoardChange {
 	private byte moveFrom;
 
 	/**
-	 * 0-maxBoardRange (63) Represents Board position maxBoardRange+1 (64)
+	 * 0-maxBoardRange (63) Represents Board position (move to or create)
+	 * 
+	 * maxBoardRange+1 (64) is remove (if from from is a board pos)
+	 * 
+	 * out of range board piece ID is upgrade (if first postion is board pos)
+	 * 
 	 * Represents piece taken/removed
 	 */
 	private byte moveTo;
+
+	private MoveType moveType;
 
 	private static Logger logger = LoggerFactory.getLogger(BoardChange.class);
 
@@ -43,6 +54,9 @@ public class BoardChange {
 	 */
 	public BoardChange(byte moveFrom, byte moveTo) throws BadRequestException {
 		super();
+
+		this.maxBoardRange = BoardState.boardSize * BoardState.boardSize;
+
 		this.setMove(moveTo, moveFrom);
 	}
 
@@ -52,6 +66,9 @@ public class BoardChange {
 	 */
 	public BoardChange(char c) throws BadRequestException {
 		super();
+
+		this.maxBoardRange = BoardState.boardSize * BoardState.boardSize;
+
 		this.setMove(c);
 	}
 
@@ -80,7 +97,7 @@ public class BoardChange {
 	}
 
 	/**
-	 * Sets the move of the board pieces
+	 * Sets the move of the board pieces. And validates it as correct
 	 * 
 	 * @param moveFrom The position moving from (or piece id for creation)
 	 * @param moveTo   The position moving to (or one out of range for deletion)
@@ -88,13 +105,18 @@ public class BoardChange {
 	 *                             bad request
 	 */
 	private void setMove(byte moveFrom, byte moveTo) throws BadRequestException {
-		if (moveFrom >= 0 && moveFrom <= maxBoardRange) {
-			this.moveTo = moveFrom;
+		boolean firstPostionBoard;
 
-			logger.debug("First byte is to move from postion: " + moveFrom);
+		// Set to invalid at the start
+		this.moveType = MoveType.INVALID;
+
+		if (moveFrom >= 0 && moveFrom <= maxBoardRange) {
+			firstPostionBoard = true;
+
+			logger.debug("First byte is a board postion: " + moveFrom);
 
 		} else if (BoardPieceIdMap.pieceIdExsists(moveTo)) {
-			this.moveFrom = moveFrom;
+			firstPostionBoard = false;
 
 			logger.debug("First byte is to create a game peice of ID: " + moveFrom);
 		} else {
@@ -103,19 +125,30 @@ public class BoardChange {
 							moveFrom, 0, this.maxBoardRange));
 		}
 
-		// It's +1 because that is piece taken
-		if (moveTo >= 0 && moveTo <= maxBoardRange + 1) {
-			this.moveTo = moveTo;
+		// If its another board postion
+		if (moveTo >= 0 && moveTo < maxBoardRange) {
+			this.moveType = MoveType.MOVE;
 
-			if (moveTo <= maxBoardRange)
-				logger.debug("Seccond byte is to move to postion: " + moveFrom);
-			else
-				logger.debug("Seccond byte is to remove piece");
+			logger.debug("Seccond byte is to move to postion: " + moveFrom);
 
+		}
+		// If its a removal
+		else if (moveTo == maxBoardRange && firstPostionBoard) {
+			this.moveType = MoveType.REMOVE;
+
+			logger.debug("Seccond byte is a removeal");
+		} else if (BoardPieceIdMap.pieceIdExsists(moveTo) && firstPostionBoard) {
+			this.moveType = MoveType.UPGRADE;
+
+			logger.debug("seccond byte is to upgrade a peice: " + moveTo);
 		} else {
 			throw new BadRequestException(
 					String.format("Byte move to [%s] is out of range [%s-%s]", moveTo, 0, this.maxBoardRange + 1));
 		}
+
+		// Set values at the end
+		this.moveFrom = moveFrom;
+		this.moveTo = moveTo;
 
 	}
 }
