@@ -32,7 +32,7 @@ public final class ChessVSConnectFour implements IGameRule {
 	 */
 	private final static int tokensInARowToWin = 4;
 	private final IMover mover = new ChessVSConnectFourMover();
-	
+
 	private static Logger logger = LoggerFactory.getLogger(ChessVSConnectFour.class);
 
 	private ChessVSConnectFour() {
@@ -157,12 +157,14 @@ public final class ChessVSConnectFour implements IGameRule {
 	public Player checkGameWinner(BoardState boardState) {
 		BoardPiece[][] boardPieces = boardState.getAllBoardPiecesWithPostions();
 		int lastArrayIndex = boardPieces.length - 1;
-		
+
 		logger.debug("---Checking if Chess VS Connect Four Has Wiiner---");
 
 		// ------Connect four win condition------
 		logger.debug("If connect four has a winner");
-		
+
+		int[] verticalCounter = new int[boardPieces.length];
+
 		// From top left to top right check each position
 		for (int y = 0; y < boardPieces.length; y++) {
 			int horizontalCounter = 0;
@@ -175,14 +177,22 @@ public final class ChessVSConnectFour implements IGameRule {
 				if (!this.checkIfPieceIsConnectFourToken(tmp)) {
 					continue;
 				}
-				
+
 				horizontalCounter++;
-				
-				logger.debug(String.format("Token piece found at [%d/%d] horizontalCounter: %d", x, y, horizontalCounter));
+				verticalCounter[y]++;
+
+				logger.debug(String.format(
+						"Token piece found at [%d/%d] horizontalCounter: %d, verticalCounter for current y: %d", x, y,
+						horizontalCounter, verticalCounter[y]));
 
 				// Won from horizontal
 				if (horizontalCounter == tokensInARowToWin) {
 					logger.debug("Player two won from horizonal");
+					return Player.TWO;
+				}
+
+				if (horizontalCounter == verticalCounter[y]) {
+					logger.debug("Player two won from vertical");
 					return Player.TWO;
 				}
 
