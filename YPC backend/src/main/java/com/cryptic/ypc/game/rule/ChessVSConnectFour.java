@@ -1,6 +1,16 @@
 package com.cryptic.ypc.game.rule;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.cryptic.ypc.game.BoardChange;
+import com.cryptic.ypc.game.BoardState;
+import com.cryptic.ypc.game.mover.ChessVSConnectFourMover;
+import com.cryptic.ypc.game.mover.IMover;
+import com.cryptic.ypc.game.piece.BoardPiece;
+import com.cryptic.ypc.game.piece.BoardPieceIdMap;
+import com.cryptic.ypc.game.piece.chess.ChessPiece;
+import com.cryptic.ypc.game.piece.connectFour.ConnectFourToken;
 import com.cryptic.ypc.model.Move;
 import com.cryptic.ypc.model.enums.Player;
 
@@ -14,6 +24,7 @@ public final class ChessVSConnectFour implements IGameRule {
 	 * Min amount of player in this game rule system (inclusive)
 	 */
 	private final static int playerMinAmount = 2;
+	private final IMover mover = new ChessVSConnectFourMover();
 
 	private ChessVSConnectFour() {
 	}
@@ -27,8 +38,72 @@ public final class ChessVSConnectFour implements IGameRule {
 
 	@Override
 	public Move makeMove(String boardState, BoardChange move, Player playerTurn) {
-		// TODO Auto-generated method stub
-		return null;
+		BoardState board = new BoardState(boardState);
+
+		// Get peice at current POS
+		BoardPiece piece = board.getPieceAtPostion(move.getMoveFrom());
+
+		// If null check if its creating a board token
+		if (piece == null) {
+			if (!BoardPieceIdMap.pieceIdExsists(move.getMoveFrom())) {
+				return null;
+			}
+
+			piece = BoardPieceIdMap.getBoardPieceFromId(move.getMoveFrom());
+
+			// If piece is not a connect four token
+			if (!(piece instanceof ConnectFourToken)) {
+				return null;
+			}
+		}
+
+		// Check turn valid
+		if (playerTurn == Player.ONE) {
+			if (!(piece instanceof ChessPiece)) {
+				return null;
+			}
+		}
+
+		if (playerTurn == Player.TWO) {
+			if (!(piece instanceof ConnectFourToken)) {
+				return null;
+			}
+		}
+
+		List<BoardChange> changes = piece.move(mover, board, move);
+
+		// If no changes made something went wrong
+		if (changes.size() == 0) {
+			return null;
+		}
+
+		Move moveToSave = new Move();
+		List<BoardChange> changesToSave = new ArrayList<>();
+
+		// Change board state while changes are needed to make
+		while (changes.size() != 0) {
+			// Update board state
+			board.performBoardChanges(changes);
+			
+			changesToSave.addAll(changes);
+			
+			changes.clear();
+
+			// Check if any connect four peices need to move
+			board.getAllBoardPieces().stream()
+			.filter(b -> b instanceof ConnectFourToken)
+			.forEach(token -> {
+				changes.addAll(token.move(mover, board, null));
+			});
+		}
+
+		// TODO check for win?
+
+		moveToSave.setMove(move);
+		moveToSave.setBoardChanges(changesToSave);
+		moveToSave.setBoardStateAftermove(board);
+		
+		return moveToSave;
 	}
 
 	@Override
