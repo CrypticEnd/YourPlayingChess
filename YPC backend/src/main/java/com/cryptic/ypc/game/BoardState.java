@@ -1,6 +1,7 @@
 package com.cryptic.ypc.game;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -136,6 +137,15 @@ public class BoardState {
 		logger.debug(String.format("Converting X: %d, Y: %d, into postion: %d", x, y, boardPos));
 
 		return this.getPieceAtPostion(boardPos);
+	}
+
+	/**
+	 * Perform a list of board changes and updates the state of the bord
+	 * 
+	 * @param changes A list of changes to be made
+	 */
+	public void performBoardChanges(List<BoardChange> changes) {
+		// TODO implement
 	}
 
 	/**
