@@ -162,7 +162,7 @@ public class BoardState {
 	 * Returns an array of arrays. Where [0][0] is 0,0 on the board. Size is based
 	 * on {@link BoardState.boardSize}
 	 * 
-	 * @return An array of arrays of board pieces. If no board piece exists that
+	 * @return An array of arrays of board pieces [X][Y]. If no board piece exists that
 	 *         Position in the array will be null. The board pieces are deep cloned
 	 */
 	public BoardPiece[][] getAllBoardPiecesWithPostions() {
