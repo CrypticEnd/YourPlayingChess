@@ -17,7 +17,7 @@ import com.cryptic.ypc.game.piece.chess.Rook;
  * It's own move is one change, but concrete implementation could have removing
  * a piece it landed on or changing it into a another piece
  * 
- * @author reece
+ * @author Cryptic
  *
  */
 public interface IChessMover extends IMover {

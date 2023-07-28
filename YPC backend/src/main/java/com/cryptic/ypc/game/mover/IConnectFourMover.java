@@ -11,7 +11,7 @@ import com.cryptic.ypc.game.piece.connectFour.ConnectFourToken;
  * is one change, but concrete implementation could have removing a piece it
  * landed on or changing or having a cascading effect
  * 
- * @author reece
+ * @author Cryptic
  *
  */
 public interface IConnectFourMover extends IMover {

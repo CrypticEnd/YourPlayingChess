@@ -18,7 +18,7 @@ import lombok.ToString;
  * Not a singleton, has a 'beenChecked' value that may want to be kept uniqe to
  * not certain if this will be used
  * 
- * @author reece
+ * @author Cryptic
  *
  */
 @Getter

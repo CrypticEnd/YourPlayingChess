@@ -15,7 +15,7 @@ import com.cryptic.ypc.model.enums.MoveType;
  * A single move is stored as a char this class stores and value checks each
  * move able to convert to required data types
  * 
- * @author reece
+ * @author Cryptic
  *
  */
 public class BoardChange {

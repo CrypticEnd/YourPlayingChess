@@ -7,7 +7,7 @@ import jakarta.persistence.Converter;
 
 /**
  * Converts a boardchange to char and back for purposes of spring data
- * @author reece
+ * @author Cryptic
  *
  */
 @Converter

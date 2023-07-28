@@ -15,7 +15,7 @@ import com.cryptic.ypc.game.piece.connectFour.ConnectFourToken;
 /**
  * This class is made to store all board pieces and convert between them
  * 
- * @author reece
+ * @author Cryptic
  *
  */
 public final class BoardPieceIdMap {

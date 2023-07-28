@@ -12,7 +12,7 @@ import com.cryptic.ypc.model.enums.Player;
  * Main functionality is to store game rules and handle how the game moves and
  * "plays"
  * 
- * @author reece
+ * @author Cryptic
  *
  */
 public interface IGameRule {

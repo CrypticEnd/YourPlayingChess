@@ -15,7 +15,7 @@ import lombok.ToString;
 /**
  * Board piece abstract class . Expects pieces to be owned by a player
  * 
- * @author reece
+ * @author Cryptic
  *
  */
 @Getter

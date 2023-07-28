@@ -13,7 +13,7 @@ import jakarta.persistence.AttributeConverter;
  * 
  * Can be used outside of spring data
  * 
- * @author reece
+ * @author Cryptic
  *
  */
 public class ListBoardChangeConverter implements AttributeConverter<List<BoardChange>, String> {
