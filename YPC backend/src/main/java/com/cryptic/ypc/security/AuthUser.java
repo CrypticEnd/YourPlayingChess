@@ -10,10 +10,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.cryptic.ypc.model.user.RegisteredUser;
 
-
-public class AuthUser implements UserDetails{
+public class AuthUser implements UserDetails {
 	private RegisteredUser user;
-	
+
 	public AuthUser(RegisteredUser user) {
 		super();
 		this.user = user;

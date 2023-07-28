@@ -1,4 +1,5 @@
 package com.cryptic.ypc.exceptions;
+
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;

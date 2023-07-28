@@ -26,7 +26,7 @@ public final class Queen extends ChessPiece {
 	@Override
 	public List<BoardChange> move(IMover mover, BoardState boardState, BoardChange move) {
 		IChessMover chessMover = this.convertIMoverOrThrow(mover);
-		
+
 		return chessMover.moveQueen(boardState, this, move);
 	}
 

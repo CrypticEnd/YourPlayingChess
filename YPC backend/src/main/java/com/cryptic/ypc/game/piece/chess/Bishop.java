@@ -24,7 +24,7 @@ public final class Bishop extends ChessPiece {
 	@Override
 	public List<BoardChange> move(IMover mover, BoardState boardState, BoardChange move) {
 		IChessMover chessMover = this.convertIMoverOrThrow(mover);
-		
+
 		return chessMover.moveBishop(boardState, this, move);
 	}
 

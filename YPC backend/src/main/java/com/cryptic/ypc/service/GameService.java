@@ -8,9 +8,8 @@ import com.cryptic.ypc.game.rule.IGameRule;
 
 @Service
 public class GameService {
-	//TODO initialize this list by getting all game types as a hash map <GameType, IGameRUle>
+	// TODO initialize this list by getting all game types as a hash map <GameType,
+	// IGameRUle>
 	List<IGameRule> gameRules;
-	
-	
-	
+
 }

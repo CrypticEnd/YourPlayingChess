@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.cryptic.ypc.model.GameType;
 
 @Repository
-public interface GameTypeRepository extends JpaRepository<GameType, Byte>{
+public interface GameTypeRepository extends JpaRepository<GameType, Byte> {
 
 }

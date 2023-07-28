@@ -42,7 +42,10 @@ public class BoardState {
 	 *                             same tile. This is impossible, but is still valid
 	 *                             data so is forbidden not bad request.
 	 */
-	public BoardState(String boardString) throws NotFoundException, BadRequestException, ForbiddenException {
+	public BoardState(String boardString)
+			throws NotFoundException,
+			BadRequestException,
+			ForbiddenException {
 		super();
 		this.boardMap = this.convertBoardStringToState(boardString);
 
@@ -62,7 +65,11 @@ public class BoardState {
 	 *                             same tile. This is impossible, but is still valid
 	 *                             data so is forbidden not bad request.
 	 */
-	public void setBoard(String boardString) throws NotFoundException, BadRequestException, ForbiddenException {
+	public void setBoard(String boardString)
+			throws NotFoundException,
+			BadRequestException,
+			ForbiddenException
+	{
 		this.boardMap = this.convertBoardStringToState(boardString);
 	}
 
@@ -214,7 +221,10 @@ public class BoardState {
 	 *                             data so is forbidden not bad request.
 	 */
 	protected HashMap<Byte, BoardPiece> convertBoardStringToState(String boardString)
-			throws NotFoundException, BadRequestException, ForbiddenException {
+			throws NotFoundException,
+			BadRequestException,
+			ForbiddenException
+	{
 		HashMap<Byte, BoardPiece> map = new HashMap<>();
 
 		logger.debug(String.format("Beginning convertion of string [%s] into boardState", boardString));

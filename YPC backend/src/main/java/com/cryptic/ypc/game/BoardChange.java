@@ -52,7 +52,8 @@ public class BoardChange {
 	 * @throws BadRequestException If any of these bytes are out of range will throw
 	 *                             bad request
 	 */
-	public BoardChange(byte moveFrom, byte moveTo) throws BadRequestException {
+	public BoardChange(byte moveFrom, byte moveTo)
+			throws BadRequestException {
 		super();
 
 		this.maxBoardRange = BoardState.boardSize * BoardState.boardSize;
@@ -64,7 +65,8 @@ public class BoardChange {
 	 * @param c Stores two bytes related to two parts of a board change
 	 * @throws BadRequestException If char is out of range throw bad request
 	 */
-	public BoardChange(char c) throws BadRequestException {
+	public BoardChange(char c)
+			throws BadRequestException {
 		super();
 
 		this.maxBoardRange = BoardState.boardSize * BoardState.boardSize;
@@ -88,7 +90,9 @@ public class BoardChange {
 	 * @param c Stores two bytes related to two parts of a board change
 	 * @throws BadRequestException If char is out of range throw bad request
 	 */
-	public void setMove(char c) throws BadRequestException {
+	public void setMove(char c)
+			throws BadRequestException
+	{
 		short s = (short) c;
 
 		byte[] moveArr = new byte[] { (byte) (s >>> 8), (byte) s };
@@ -104,19 +108,21 @@ public class BoardChange {
 	 * @throws BadRequestException If any of these bytes are out of range will throw
 	 *                             bad request
 	 */
-	private void setMove(byte moveFrom, byte moveTo) throws BadRequestException {
+	private void setMove(byte moveFrom, byte moveTo)
+			throws BadRequestException
+	{
 		boolean firstPostionBoard;
 
 		// Set to invalid at the start
 		this.moveType = MoveType.INVALID;
 
-		if ( moveFrom >= 0 && moveFrom <= maxBoardRange ) {
+		if (moveFrom >= 0 && moveFrom <= maxBoardRange) {
 			firstPostionBoard = true;
 
 			logger.debug("First byte is a board postion: " + moveFrom);
 
 		}
-		else if ( BoardPieceIdMap.pieceIdExsists(moveTo) ) {
+		else if (BoardPieceIdMap.pieceIdExsists(moveTo)) {
 			firstPostionBoard = false;
 
 			logger.debug("First byte is to create a game peice of ID: " + moveFrom);
@@ -128,9 +134,9 @@ public class BoardChange {
 		}
 
 		// If its another board postion
-		if ( moveTo >= 0 && moveTo < maxBoardRange ) {
+		if (moveTo >= 0 && moveTo < maxBoardRange) {
 			// if its a move
-			if ( firstPostionBoard ) {
+			if (firstPostionBoard) {
 				this.moveType = MoveType.MOVE;
 
 				logger.debug("Seccond byte is to move to postion: " + moveTo);
@@ -144,12 +150,12 @@ public class BoardChange {
 
 		}
 		// If its a removal
-		else if ( moveTo == maxBoardRange && firstPostionBoard ) {
+		else if (moveTo == maxBoardRange && firstPostionBoard) {
 			this.moveType = MoveType.REMOVE;
 
 			logger.debug("Seccond byte is a removeal");
 		}
-		else if ( BoardPieceIdMap.pieceIdExsists(moveTo) && firstPostionBoard ) {
+		else if (BoardPieceIdMap.pieceIdExsists(moveTo) && firstPostionBoard) {
 			this.moveType = MoveType.UPGRADE;
 
 			logger.debug("seccond byte is to upgrade a peice: " + moveTo);

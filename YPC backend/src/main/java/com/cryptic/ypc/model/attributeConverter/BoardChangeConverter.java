@@ -7,11 +7,12 @@ import jakarta.persistence.Converter;
 
 /**
  * Converts a boardchange to char and back for purposes of spring data
+ * 
  * @author Cryptic
  *
  */
 @Converter
-public class BoardChangeConverter implements AttributeConverter<BoardChange, Character>{
+public class BoardChangeConverter implements AttributeConverter<BoardChange, Character> {
 
 	@Override
 	public Character convertToDatabaseColumn(BoardChange attribute) {

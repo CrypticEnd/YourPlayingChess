@@ -20,11 +20,13 @@ public abstract class ChessPiece extends BoardPiece {
 	 * 
 	 * @param mover
 	 * @return
-	 * @throws IllegalArgumentException If Imover is not a Ichess mover or a child of
+	 * @throws IllegalArgumentException If Imover is not a Ichess mover or a child
+	 *                                  of
 	 */
-	protected IChessMover convertIMoverOrThrow(IMover mover) throws IllegalArgumentException {
-		if (mover instanceof IChessMover)
-			return (IChessMover) mover;
+	protected IChessMover convertIMoverOrThrow(IMover mover)
+			throws IllegalArgumentException
+	{
+		if (mover instanceof IChessMover) return (IChessMover) mover;
 
 		throw new IllegalArgumentException("Chess piece cannot move with a non chess piece mover");
 	}

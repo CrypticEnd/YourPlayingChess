@@ -8,7 +8,6 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 
 import com.cryptic.ypc.security.SecurityConstants;
 
-
 @Configuration
 @EnableWebSocketMessageBroker
 public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer {

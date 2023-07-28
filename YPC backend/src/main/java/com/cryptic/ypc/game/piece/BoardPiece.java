@@ -33,7 +33,7 @@ public abstract class BoardPiece implements Cloneable {
 	}
 
 	/**
-	 * Forces each BoardPiece to have a clone method 
+	 * Forces each BoardPiece to have a clone method
 	 */
 	@Override
 	public abstract BoardPiece clone();

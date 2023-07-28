@@ -8,9 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cryptic.ypc.model.user.User;
 
-public interface UserRepository extends JpaRepository<User, Integer>{
+public interface UserRepository extends JpaRepository<User, Integer> {
 	public boolean existsById(int id);
-	
+
 	@Modifying
 	@Transactional
 	@Query(value = "UPDATE users SET type = 'Registered', user_name = :name, password = :password "

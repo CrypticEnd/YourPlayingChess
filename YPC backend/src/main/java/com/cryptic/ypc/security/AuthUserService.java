@@ -18,7 +18,9 @@ public class AuthUserService implements UserDetailsService {
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String username)
+			throws UsernameNotFoundException
+	{
 		return new AuthUser(this.userRepo.findByUsername(username)
 				.orElseThrow(() -> new BadRequestException("Username not found")));
 	}

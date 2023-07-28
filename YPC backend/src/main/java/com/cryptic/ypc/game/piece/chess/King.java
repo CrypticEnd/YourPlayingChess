@@ -31,11 +31,11 @@ public class King extends ChessPiece {
 	public King(Player player) {
 		super(player);
 	}
-	
+
 	@Override
 	public List<BoardChange> move(IMover mover, BoardState boardState, BoardChange move) {
 		IChessMover chessMover = this.convertIMoverOrThrow(mover);
-		
+
 		return chessMover.moveKing(boardState, this, move);
 	}
 
@@ -43,7 +43,5 @@ public class King extends ChessPiece {
 	public BoardPiece clone() {
 		return new King();
 	}
-
-
 
 }

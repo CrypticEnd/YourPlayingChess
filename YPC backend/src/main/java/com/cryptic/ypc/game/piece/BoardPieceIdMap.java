@@ -29,8 +29,7 @@ public final class BoardPieceIdMap {
 	 * CHANGE THE IDS UNLESS CLEARING DATABSE
 	 */
 	private static void initialize() {
-		if (map != null)
-			return;
+		if (map != null) return;
 
 		map = new HashMap<>();
 
@@ -53,18 +52,21 @@ public final class BoardPieceIdMap {
 		return map.containsKey(id);
 	}
 
-	public static byte getPieceId(BoardPiece boardPiece) throws NotFoundException {
+	public static byte getPieceId(BoardPiece boardPiece)
+			throws NotFoundException
+	{
 		initialize();
 
 		for (Map.Entry<Byte, BoardPiece> entry : map.entrySet()) {
-			if (entry.getValue().getClass() == boardPiece.getClass())
-				return entry.getKey();
+			if (entry.getValue().getClass() == boardPiece.getClass()) return entry.getKey();
 		}
 
 		throw new NotFoundException("Board piece Id not found with given boardpeice class: " + boardPiece.getClass());
 	}
 
-	public static Class<? extends BoardPiece> getPieceClassObjectById(byte id) throws NotFoundException {
+	public static Class<? extends BoardPiece> getPieceClassObjectById(byte id)
+			throws NotFoundException
+	{
 		initialize();
 
 		return find(id).getClass();
@@ -77,7 +79,9 @@ public final class BoardPieceIdMap {
 	 * @param id
 	 * @return Cloned board piece
 	 */
-	public static BoardPiece getBoardPieceFromId(byte id) throws NotFoundException {
+	public static BoardPiece getBoardPieceFromId(byte id)
+			throws NotFoundException
+	{
 		initialize();
 
 		BoardPiece boardPiece = find(id);
@@ -85,9 +89,10 @@ public final class BoardPieceIdMap {
 		return boardPiece.clone();
 	}
 
-	private static BoardPiece find(byte id) throws NotFoundException {
-		if (map.containsKey(id))
-			return map.get(id);
+	private static BoardPiece find(byte id)
+			throws NotFoundException
+	{
+		if (map.containsKey(id)) return map.get(id);
 
 		throw new NotFoundException("Board piece not found with given id: " + id);
 	}

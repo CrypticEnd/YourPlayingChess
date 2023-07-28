@@ -31,7 +31,7 @@ public class RestExceptionHandler {
 		logger.error("FORBIDDEN 403 : " + e.getMessage());
 		return new ApiErrorResponse(e.getMessage());
 	}
-	
+
 	@ExceptionHandler(UnauthorizedException.class)
 	@ResponseStatus(HttpStatus.UNAUTHORIZED)
 	public ApiErrorResponse handle(UnauthorizedException e) {

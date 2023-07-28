@@ -26,7 +26,7 @@ public final class Pawn extends ChessPiece {
 	@Override
 	public List<BoardChange> move(IMover mover, BoardState boardState, BoardChange move) {
 		IChessMover chessMover = this.convertIMoverOrThrow(mover);
-		
+
 		return chessMover.movePawn(boardState, this, move);
 	}
 

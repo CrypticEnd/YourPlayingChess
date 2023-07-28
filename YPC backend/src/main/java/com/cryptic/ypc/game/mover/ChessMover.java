@@ -18,13 +18,13 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ChessMover implements IChessMover{
+public class ChessMover implements IChessMover {
 	private boolean canTakePiece;
 	private boolean canTakeSelf;
-	
+
 	/**
-	 * Determines what board side the chess pieces start on
-	 * True to start at 0/0, false to start at the opsit 
+	 * Determines what board side the chess pieces start on True to start at 0/0,
+	 * false to start at the opsit
 	 */
 	private boolean startZeroZero;
 
@@ -63,6 +63,5 @@ public class ChessMover implements IChessMover{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
 
 }

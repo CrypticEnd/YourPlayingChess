@@ -36,26 +36,25 @@ public class Game {
 	private int id;
 
 	/**
-	 * Games have a list of players, right now its only planned to have two player games 
-	 * but in the future this will allow it to be more expandable
-	 * The game object that handles movement will decide how many players a single game can have.
+	 * Games have a list of players, right now its only planned to have two player
+	 * games but in the future this will allow it to be more expandable The game
+	 * object that handles movement will decide how many players a single game can
+	 * have.
 	 * 
-	 * The order of players matters. First in the list will be player one and next is player two.
-	 * Order should persist
+	 * The order of players matters. First in the list will be player one and next
+	 * is player two. Order should persist
 	 */
 	@ManyToMany
-	@JoinTable(name = "game_players", 
-		joinColumns = @JoinColumn(name = "game_id"), 
-		inverseJoinColumns = @JoinColumn(name = "user_id"))
+	@JoinTable(name = "game_players", joinColumns = @JoinColumn(name = "game_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private List<User> players;
 
 	@ManyToOne
 	private GameType type;
 
 	private Player turnFirst;
-	
+
 	private Player winner;
-	
+
 	@Convert(converter = BoardStateConverter.class)
 	private BoardState currentBoardState;
 

@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.cryptic.ypc.model.Move;
 
 @Repository
-public interface MoveRepository extends JpaRepository<Move, Long>{
-	
+public interface MoveRepository extends JpaRepository<Move, Long> {
+
 }

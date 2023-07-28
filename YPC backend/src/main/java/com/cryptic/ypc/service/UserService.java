@@ -80,7 +80,7 @@ public class UserService {
 		return user.getId();
 
 	}
-	
+
 	/**
 	 * Checks user password, encodes the password and saves the user
 	 * 
@@ -108,30 +108,33 @@ public class UserService {
 
 		this.updateUser(user, userFromDb);
 	}
-	
-	/** Updates a user if requester has proper permissions to update said user.
-	 * (owns the user account)
+
+	/**
+	 * Updates a user if requester has proper permissions to update said user. (owns
+	 * the user account)
+	 * 
 	 * @param user Updated user
 	 * @param auth User authentication
 	 */
 	public void updateUser(User user, Authentication auth) {
-		if(auth == null) {
+		if (auth == null) {
 			throw new UnauthorizedException("Do not have permission to update this user");
 		}
-		
+
 		User userFromDb = this.userRepository.findById(user.getId()).orElseThrow(() -> new NotFoundException(
 				String.format("User not found with id: %d. Cannot udate user", user.getId())));
-		
-		if(!auth.getName().equals(userFromDb.getUsername())) {
+
+		if (!auth.getName().equals(userFromDb.getUsername())) {
 			throw new UnauthorizedException("Do not have permission to update this user");
 		}
-		
+
 		this.updateUser(user, userFromDb);
 	}
-	
+
 	/**
 	 * Updates user given the update user and the currently saved user
-	 * @param user Updated user
+	 * 
+	 * @param user       Updated user
 	 * @param userFromDb User currently saved
 	 */
 	private void updateUser(User user, User userFromDb) {

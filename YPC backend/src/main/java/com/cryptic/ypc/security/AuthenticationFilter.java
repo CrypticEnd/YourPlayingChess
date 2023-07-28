@@ -29,16 +29,19 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res)
-			throws AuthenticationException {
+			throws AuthenticationException
+	{
 		try {
 			UserLoginRequestModel creds = new ObjectMapper().readValue(req.getInputStream(),
 					UserLoginRequestModel.class);
 			System.out.println(creds);
 			return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(creds.getUsername(),
 					creds.getPassword(), new ArrayList<>()));
-		} catch (BadCredentialsException e) {
+		}
+		catch (BadCredentialsException e) {
 			throw e;
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			System.out.println("Throwing the runtime exception");
 			throw new RuntimeException(e);
 		}
@@ -46,7 +49,10 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
 	@Override
 	protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain,
-			Authentication auth) throws IOException, ServletException {
+			Authentication auth)
+			throws IOException,
+			ServletException
+	{
 		String username = auth.getName();
 		String token = Jwts.builder().setSubject(username)
 				.setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME))

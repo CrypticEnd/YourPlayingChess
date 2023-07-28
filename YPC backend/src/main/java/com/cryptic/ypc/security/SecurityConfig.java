@@ -33,28 +33,30 @@ public class SecurityConfig {
 	}
 
 	@Bean
-	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+	public SecurityFilterChain filterChain(HttpSecurity http)
+			throws Exception
+	{
 		// Configure AuthenticationManagerBuilder
 		AuthenticationManagerBuilder authenticationManagerBuilder = http
 				.getSharedObject(AuthenticationManagerBuilder.class);
 		authenticationManagerBuilder.userDetailsService(authUserService).passwordEncoder(encoder);
 		// Get AuthenticationManager
 		AuthenticationManager authenticationManager = authenticationManagerBuilder.build();
-		http
-				.cors().and().csrf().disable().authorizeHttpRequests()
+		http.cors().and().csrf().disable().authorizeHttpRequests()
 				.requestMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL).permitAll()
 				.requestMatchers(HttpMethod.PUT, SecurityConstants.SIGN_UP_URL).permitAll()
 				.requestMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL_REGISTERED).permitAll()
-				.requestMatchers("ws").permitAll().requestMatchers("ws/**").permitAll()
-				.anyRequest().permitAll()
-				.and().addFilter(getAuthenticationFilter(authenticationManager))
+				.requestMatchers("ws").permitAll().requestMatchers("ws/**").permitAll().anyRequest().permitAll().and()
+				.addFilter(getAuthenticationFilter(authenticationManager))
 				.addFilter(new AuthorizationFilter(authenticationManager)).authenticationManager(authenticationManager)
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.headers().frameOptions().disable();
 		return http.build();
 	}
 
-	public AuthenticationFilter getAuthenticationFilter(AuthenticationManager authenticationManager) throws Exception {
+	public AuthenticationFilter getAuthenticationFilter(AuthenticationManager authenticationManager)
+			throws Exception
+	{
 		final AuthenticationFilter filter = new AuthenticationFilter(authenticationManager);
 		filter.setFilterProcessesUrl(SecurityConstants.SIGN_IN_URL);
 		return filter;

@@ -35,12 +35,10 @@ public final class ChessVSConnectFour implements IGameRule {
 
 	private static Logger logger = LoggerFactory.getLogger(ChessVSConnectFour.class);
 
-	private ChessVSConnectFour() {
-	}
+	private ChessVSConnectFour() {}
 
 	public ChessVSConnectFour getChessVSConnectFour() {
-		if (INSTANCE == null)
-			INSTANCE = new ChessVSConnectFour();
+		if (INSTANCE == null) INSTANCE = new ChessVSConnectFour();
 
 		return INSTANCE;
 	}
@@ -111,21 +109,19 @@ public final class ChessVSConnectFour implements IGameRule {
 
 	@Override
 	public Player calculatePlayerTurn(Player whoWentFirst, int amountOfPlayers, int AmountOfTurns) {
-		if (whoWentFirst == Player.NONE)
-			return Player.NONE;
+		if (whoWentFirst == Player.NONE) return Player.NONE;
 
 		// If game cannot start it cannot be a players turn
-		if (!this.canStartGame(amountOfPlayers))
-			return Player.NONE;
+		if (!this.canStartGame(amountOfPlayers)) return Player.NONE;
 
 		// Expects only two players so only player one and player two can play
-		if (whoWentFirst != Player.ONE || whoWentFirst != Player.TWO)
-			return Player.NONE;
+		if (whoWentFirst != Player.ONE || whoWentFirst != Player.TWO) return Player.NONE;
 
 		// If amount of turns is even whoever went first goes
 		if (AmountOfTurns % 2 == 0) {
 			return whoWentFirst;
-		} else {
+		}
+		else {
 			// Otherwise its the player who did not go first
 			if (whoWentFirst == Player.ONE)
 				return Player.TWO;
@@ -224,7 +220,7 @@ public final class ChessVSConnectFour implements IGameRule {
 	/**
 	 * Checks if a connect four player has won from horizontal. Takes in a position
 	 * of connect four token and checks if a horizontal won can be found from above
-	 * it. Does not check below as its assumed That they have been checked before 
+	 * it. Does not check below as its assumed That they have been checked before
 	 * 
 	 * @param boardPieces Current board pieces with set positions
 	 * @param tokenX      The position X of token to check
@@ -232,49 +228,48 @@ public final class ChessVSConnectFour implements IGameRule {
 	 * @return True if horizontal won found false otherwise
 	 */
 	protected boolean checkUpwardsHorizontal(BoardPiece[][] boardPieces, int tokenX, int tokenY) {
-		int indexOffset = 1 ,leftCount = 0, rightCount = 0;
-		
+		int indexOffset = 1, leftCount = 0, rightCount = 0;
+
 		logger.debug(String.format("Checking horizontal win of piece [%d/%d]", tokenX, tokenY));
-		
-		// Impossible to have a connect four if array is out of range 
-		if(boardPieces.length >= tokenY+tokensInARowToWin) {
+
+		// Impossible to have a connect four if array is out of range
+		if (boardPieces.length >= tokenY + tokensInARowToWin) {
 			logger.debug("Cannot get connect four with remain board");
 			return false;
 		}
-			
-		
+
 		for (int y = tokenY; y < boardPieces.length; y++) {
 			// Check left
 			// If array is not out of range and count has gained +1 each loop
-			if(tokenX - indexOffset >= 0 && leftCount == indexOffset-1) {
+			if (tokenX - indexOffset >= 0 && leftCount == indexOffset - 1) {
 				BoardPiece temp = boardPieces[tokenX - indexOffset][y];
-				
-				if(checkIfPieceIsConnectFourToken(temp)) {
+
+				if (checkIfPieceIsConnectFourToken(temp)) {
 					leftCount++;
 				}
 			}
-			
+
 			// Check right
 			// If array is not out of range and count has gained +1 each loop
-			if(tokenX + indexOffset < boardPieces.length && rightCount == indexOffset-1) {
+			if (tokenX + indexOffset < boardPieces.length && rightCount == indexOffset - 1) {
 				BoardPiece temp = boardPieces[tokenX + indexOffset][y];
-				
-				if(checkIfPieceIsConnectFourToken(temp)) {
+
+				if (checkIfPieceIsConnectFourToken(temp)) {
 					rightCount++;
 				}
 			}
-			
-			// Check if both values are still counting 			
-			if(leftCount != indexOffset && rightCount != indexOffset) {
+
+			// Check if both values are still counting
+			if (leftCount != indexOffset && rightCount != indexOffset) {
 				return false;
 			}
 
 			// Check win
-			if(leftCount == tokensInARowToWin || rightCount == tokensInARowToWin) {
+			if (leftCount == tokensInARowToWin || rightCount == tokensInARowToWin) {
 				return true;
 			}
-				
-			// Add one to offset 
+
+			// Add one to offset
 			indexOffset++;
 		}
 
