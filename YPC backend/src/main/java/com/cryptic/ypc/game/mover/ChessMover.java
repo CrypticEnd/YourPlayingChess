@@ -10,15 +10,23 @@ import com.cryptic.ypc.game.piece.chess.Knight;
 import com.cryptic.ypc.game.piece.chess.Pawn;
 import com.cryptic.ypc.game.piece.chess.Queen;
 import com.cryptic.ypc.game.piece.chess.Rook;
+import com.cryptic.ypc.model.Move;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Abstract class of chess mover, containing all the basic logic required to
+ * play chess. Since all games use chess as a base for movement
+ * 
+ * @author Cryptic
+ *
+ */
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ChessMover implements IChessMover {
+public abstract class ChessMover implements IMover {
 	private boolean canTakePiece;
 	private boolean canTakeSelf;
 
@@ -28,38 +36,37 @@ public class ChessMover implements IChessMover {
 	 */
 	private boolean startZeroZero;
 
-	@Override
-	public List<BoardChange> moveBishop(BoardState boardState, Bishop bishop, BoardChange move) {
+	public Move move(BoardState boardState, BoardChange boardChange) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public List<BoardChange> moveKing(BoardState boardState, King king, BoardChange move) {
+	protected List<BoardChange> moveBishop(BoardState boardState, Bishop bishop, BoardChange move) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public List<BoardChange> moveKnight(BoardState boardState, Knight knight, BoardChange move) {
+	protected List<BoardChange> moveKing(BoardState boardState, King king, BoardChange move) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public List<BoardChange> movePawn(BoardState boardState, Pawn pawn, BoardChange move) {
+	protected List<BoardChange> moveKnight(BoardState boardState, Knight knight, BoardChange move) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public List<BoardChange> moveQueen(BoardState boardState, Queen queen, BoardChange move) {
+	protected List<BoardChange> movePawn(BoardState boardState, Pawn pawn, BoardChange move) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public List<BoardChange> moveRook(BoardState boardState, Rook rook, BoardChange move) {
+	protected List<BoardChange> moveQueen(BoardState boardState, Queen queen, BoardChange move) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	protected List<BoardChange> moveRook(BoardState boardState, Rook rook, BoardChange move) {
 		// TODO Auto-generated method stub
 		return null;
 	}

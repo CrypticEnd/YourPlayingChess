@@ -1,17 +1,23 @@
 package com.cryptic.ypc.game.mover;
 
-import java.util.List;
-
 import com.cryptic.ypc.game.BoardChange;
 import com.cryptic.ypc.game.BoardState;
-import com.cryptic.ypc.game.piece.connectFour.ConnectFourToken;
+import com.cryptic.ypc.model.Move;
 
-public class ChessVSConnectFourMover extends ChessMover implements IConnectFourMover {
+/**
+ * Class containing movment rules for chess VS Connect four. 
+ * @author Cryptic
+ *
+ */
+public class ChessVSConnectFourMover extends ChessMover {
 
-	@Override
-	public List<BoardChange> tokenFall(BoardState boardState, ConnectFourToken token, BoardChange move) {
-		// TODO Auto-generated method stub
-		return null;
+	public ChessVSConnectFourMover(boolean canTakePiece, boolean canTakeSelf, boolean startZeroZero) {
+		super(canTakePiece, canTakeSelf, startZeroZero);
 	}
 
+	@Override
+	public Move move(BoardState boardState, BoardChange boardChange) {
+		// TODO Auto-generated method stub
+		return super.move(boardState, boardChange);
+	}
 }
