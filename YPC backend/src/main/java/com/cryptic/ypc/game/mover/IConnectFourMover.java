@@ -17,11 +17,11 @@ import com.cryptic.ypc.game.piece.connectFour.ConnectFourToken;
 public interface IConnectFourMover extends IMover {
 
 	/**
-	 * For if the token can/cannot fall. Connect four tends to have tokens falling
+	 * For if the token can/cannot be placed and/or if it should fall. Connect four tends to have tokens falling
 	 * but concrete implementation could change that
-	 * 
-	 * @param boardState
-	 * @param token
+	 * @param boardState The current state of the board
+	 * @param token The token that should be checked
+	 * @param move The move being made - Should only be a create move or null for checking if can fall
 	 * @return
 	 */
 	public List<BoardChange> tokenFall(BoardState boardState, ConnectFourToken token, BoardChange move);
