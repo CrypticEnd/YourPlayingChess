@@ -31,7 +31,7 @@ public final class ChessVSConnectFour implements IGameRule {
 	 * Here incase wanting to change the rules of connect four
 	 */
 	private final static int tokensInARowToWin = 4;
-	private final IMover mover = new ChessVSConnectFourMover();
+	private final IMover mover = new ChessVSConnectFourMover(false, false, true);
 
 	private static Logger logger = LoggerFactory.getLogger(ChessVSConnectFour.class);
 
@@ -75,36 +75,40 @@ public final class ChessVSConnectFour implements IGameRule {
 			}
 		}
 
-		List<BoardChange> changes = piece.move(mover, boardState, move);
+		// Perform first move
+		return mover.move(boardState, move);
 
-		// If no changes made something went wrong
-		if (changes.size() == 0) {
-			return null;
-		}
-
-		Move moveToSave = new Move();
-		List<BoardChange> changesToSave = new ArrayList<>();
-
-		// Change board state while changes are needed to make
-		while (changes.size() != 0) {
-			// Update board state
-			boardState.performBoardChanges(changes);
-
-			changesToSave.addAll(changes);
-
-			changes.clear();
-
-			// Check if any connect four peices need to move
-			boardState.getAllBoardPieces().stream().filter(b -> b instanceof ConnectFourToken).forEach(token -> {
-				changes.addAll(token.move(mover, boardState, null));
-			});
-		}
-
-		moveToSave.setMove(move);
-		moveToSave.setBoardChanges(changesToSave);
-		moveToSave.setBoardStateAftermove(boardState);
-
-		return moveToSave;
+		//TODO remove
+//		// If no changes made something went wrong
+//		if (changes.size() == 0) {
+//			return null;
+//		}
+//
+//		Move moveToSave = new Move();
+//		List<BoardChange> changesToSave = new ArrayList<>();
+//
+//		// Change board state while changes are needed to make
+//		while (changes.size() != 0) {
+//			// Update board state
+//			boardState.performBoardChanges(changes);
+//
+//			changesToSave.addAll(changes);
+//
+//			changes.clear();
+//
+//			// Check if any connect four peices need to move
+//			boardState.getAllBoardPieces().stream().filter(b -> b instanceof ConnectFourToken).forEach(token -> {
+//				changes.addAll(
+//						mover.move(boardState, null) // Move is null because its just checking for update
+//						);
+//			});
+//		}
+//
+//		moveToSave.setMove(move);
+//		moveToSave.setBoardChanges(changesToSave);
+//		moveToSave.setBoardStateAftermove(boardState);
+//
+//		return moveToSave;
 	}
 
 	@Override
