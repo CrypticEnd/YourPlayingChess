@@ -119,7 +119,7 @@ public class BoardState {
 	 *         space is empty
 	 */
 	public BoardPiece getPieceAtPostion(byte boardPos) {
-		if (boardMap.containsKey(boardMap)) {
+		if (boardMap.containsKey(boardPos)) {
 			BoardPiece boardPiece = boardMap.get(boardPos);
 
 			BoardPiece pieceClone = boardPiece.clone();
@@ -202,8 +202,33 @@ public class BoardState {
 	 * 
 	 * @param changes A list of changes to be made
 	 */
-	public void performBoardChanges(List<BoardChange> changes) {
-		// TODO implement
+	public void performBoardChanges(List<BoardChange> boardChanges) {
+		// TODO implement / complete
+
+		for (BoardChange change : boardChanges) {
+			try {
+				switch (change.geMoveType()) {
+				case MOVE: {
+
+				}
+				case CREATE: {
+					// TODO how to know who owns the peice
+				}
+				case REMOVE: {
+
+				}
+				case UPGRADE: {
+
+				}
+				default:
+					throw new IllegalArgumentException("Board change is invaild : " + change);
+				}
+			}
+			catch (IndexOutOfBoundsException e) {
+				throw new IllegalArgumentException("Index was out of bounds, move type invaild : " + change);
+			}
+
+		}
 	}
 
 	/**

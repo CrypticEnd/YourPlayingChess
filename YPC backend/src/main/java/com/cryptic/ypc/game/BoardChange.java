@@ -85,6 +85,9 @@ public class BoardChange {
 	public char getMove() {
 		return (char) (((moveTo & 0xFF) << 8) + (moveFrom & 0xFF));
 	}
+	public MoveType geMoveType() {
+		return moveType;
+	}
 
 	/**
 	 * @param c Stores two bytes related to two parts of a board change
